@@ -7,6 +7,10 @@ const User = require('./user')
  *    BlogPost.belongsTo(User)
  */
 
+Order.hasMany(Product)
+Product.belongsTo(Order)
+User.hasMany(Order)
+Order.belongsTo(User)
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
