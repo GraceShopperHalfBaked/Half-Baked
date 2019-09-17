@@ -15,7 +15,7 @@ const Product = db.define('product', {
     defaultValue:
       'https://images.clipartlogo.com/files/istock/previews/4066/40662726-bakery-shop.jpg'
   },
-  price: {
+  currentPrice: {
     type: Sequelize.FLOAT,
     allowNull: false
   },

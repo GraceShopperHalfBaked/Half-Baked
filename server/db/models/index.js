@@ -10,7 +10,7 @@ const ProductOrder = require('./productOrder')
  *    BlogPost.belongsTo(User)
  */
 
-Order.hasMany(Product, {through: ProductOrder, foreignKey: 'orderId'})
+Order.belongsToMany(Product, {through: ProductOrder, foreignKey: 'orderId'})
 Product.belongsToMany(Order, {through: ProductOrder, foreignKey: 'productId'})
 User.hasMany(Order)
 Order.belongsTo(User)
@@ -23,5 +23,6 @@ Order.belongsTo(User)
 module.exports = {
   User,
   Product,
-  Order
+  Order,
+  ProductOrder
 }
