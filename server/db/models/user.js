@@ -46,10 +46,10 @@ const User = db.define('user', {
   adminStatus: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  googleId: {
+    type: Sequelize.STRING
   }
-  // googleId: {
-  //   type: Sequelize.STRING
-  // }
 })
 
 module.exports = User
