@@ -29,13 +29,13 @@ async function seed() {
   const orders = await Promise.all([
     Order.create({
       cartStatus: 'pending',
-      date: 8 / 4 / 2019,
+      date: '2019-08-09 14:00:10',
       totalOrderPrice: 6.5,
       userId: 1
     }),
     Order.create({
       cartStatus: 'purchased',
-      date: 9 / 4 / 2019,
+      date: '2019-09-09 17:30:10',
       totalOrderPrice: 8.75,
       userId: 2
     })
