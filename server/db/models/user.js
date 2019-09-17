@@ -40,8 +40,8 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  creditCard: {
-    type: Sequelize.BIGINT
+  stripeId: {
+    type: Sequelize.STRING
   },
   adminStatus: {
     type: Sequelize.BOOLEAN,
