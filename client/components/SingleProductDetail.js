@@ -9,6 +9,10 @@ class DisconnectedSingleProductDetail extends React.Component {
     this.props.fetchSelectedProduct(productId)
   }
 
+  // addToCart() {
+
+  // }
+
   render() {
     const {selectedProduct} = this.props
     return (
