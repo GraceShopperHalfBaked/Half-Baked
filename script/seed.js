@@ -100,19 +100,19 @@ async function seed() {
     }),
     ProductOrder.create({
       totalProductPrice: 1.25,
-      quantiy: 1,
+      quantity: 1,
       orderId: 1,
       productId: 1
     }),
     ProductOrder.create({
       totalProductPrice: 1.25,
-      quantiy: 1,
+      quantity: 1,
       orderId: 2,
       productId: 1
     }),
     ProductOrder.create({
       totalProductPrice: 7.5,
-      quantiy: 1,
+      quantity: 1,
       orderId: 2,
       productId: 4
     })
