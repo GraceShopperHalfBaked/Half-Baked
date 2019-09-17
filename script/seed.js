@@ -29,13 +29,13 @@ async function seed() {
   const orders = await Promise.all([
     Order.create({
       cartStatus: 'pending',
-      date: 8 / 4 / 2019,
+      date: '2019-08-09 14:00:10',
       totalOrderPrice: 6.5,
       userId: 1
     }),
     Order.create({
       cartStatus: 'purchased',
-      date: 9 / 4 / 2019,
+      date: '2019-09-09 17:30:10',
       totalOrderPrice: 8.75,
       userId: 2
     })
@@ -85,7 +85,9 @@ async function seed() {
     Product.create({
       name: 'Ultimate Smore',
       description:
-        'Our Ultimate Smore is our take on the classic treat, made with speculoos cookies, shards of milk chocolate sprinkled with Maldon sea salt, a dark chocolate ganache with Cabin Fever whiskey, Valrhona Caramelia (caramelized milk chocolate) covered puffed rice, and one big all-honey marshmallow. Torched to perfection, it is almost the size of a burger and decadent in every way.  (nut-free)content/uploads/2015/10/Ultimate-Smore-2-1024x682.jpg',
+        'Our Ultimate Smore is our take on the classic treat, made with speculoos cookies, shards of milk chocolate sprinkled with Maldon sea salt, a dark chocolate ganache with Cabin Fever whiskey, Valrhona Caramelia (caramelized milk chocolate) covered puffed rice, and one big all-honey marshmallow. Torched to perfection, it is almost the size of a burger and decadent in every way.  (nut-free)',
+      imageUrl:
+        'https://dominiqueanselkitchen.com/wp-content/uploads/2015/10/Ultimate-Smore-2-1024x682.jpg',
       currentPrice: 8.75,
       quantity: 20
     })
