@@ -1,38 +1,40 @@
 import axios from 'axios'
 
 // ACTION TYPES
-const GOT_ORDERS_FROM_SERVER = 'GOT_ORDERS_FROM_SERVER'
-const GOT_SINGLE_ORDER_FROM_SERVER = 'GOT_SINGLE_ORDER_FROM_SERVER'
+const GOT_CART_FROM_SERVER = 'GOT_CART_FROM_SERVER'
+const ADDED_TO_CART = 'ADDED_TO_CART'
 
 // ACTION CREATORS
-const gotOrders = orders => ({
-  type: GOT_ORDERS_FROM_SERVER,
-  orders
+const gotCart = cart => ({
+  type: GOT_CART_FROM_SERVER,
+  cart
 })
 
-const gotSingleOrder = order => ({
-  type: GOT_SINGLE_ORDER_FROM_SERVER,
-  order
-})
+const addedToCart = product => {
+  return {
+    type: ADDED_TO_CART,
+    product
+  }
+}
 
-// THUNK CREATOR for ALL ORDERS
-export const fetchAllOrders = () => {
+// THUNK CREATOR for CART
+export const fetchCart = orderId => {
   return async dispatch => {
     try {
-      const {data} = await axios.get('/api/orders')
-      dispatch(gotOrders(data))
+      // const {data} = await axios.get(`WHATEVER THIS ROUTE IS ${orderId}`)
+      // dispatch(gotCart(data))
     } catch (error) {
       console.error(error)
     }
   }
 }
 
-// THUNK CREATOR for SINGLE ORDER
-export const fetchSingleOrder = orderId => {
+export const addToCart = product => {
+  console.log('product', product)
   return async dispatch => {
     try {
-      const {data} = await axios.get(`WHATEVER THIS ROUTE IS ${orderId}`)
-      dispatch(gotSingleOrder(data))
+      const {data} = await axios.post('/api/orders', product)
+      dispatch(addedToCart(data))
     } catch (error) {
       console.error(error)
     }
@@ -41,23 +43,25 @@ export const fetchSingleOrder = orderId => {
 
 // INITIAL STATE
 const initialState = {
-  all: [],
-  selected: {}
+  history: [],
+  cart: []
 }
 
 // REDUCER
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GOT_ORDERS_FROM_SERVER:
+    case GOT_CART_FROM_SERVER:
       return {
         ...state,
-        all: action.orders
+        cart: action.cart
       }
-    case GOT_SINGLE_ORDER_FROM_SERVER:
+
+    case ADDED_TO_CART:
       return {
         ...state,
-        selected: action.order
+        cart: action.cart
       }
+
     default:
       return state
   }

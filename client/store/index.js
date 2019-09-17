@@ -8,8 +8,8 @@ import orderReducer from './order'
 
 const reducer = combineReducers({
   user: userReducer,
-  product: productReducer
-  // ,  order: orderReducer
+  product: productReducer,
+  order: orderReducer
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

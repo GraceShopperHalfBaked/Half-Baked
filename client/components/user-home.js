@@ -8,17 +8,11 @@ import {fetchProducts} from '../store/product'
  * COMPONENT
  */
 class UserHome extends React.Component {
-  constructor() {
-    super()
-    this.addToCart = this.addToCart.bind(this)
-  }
-
   componentDidMount() {
     this.props.getProducts()
   }
 
-  addToCart(product) {
-    /*
+  /*
     - dispatches orders thunk, which checks if any orders match userId with a pending status (findorcreate)
     - if pendingOrder doesn't exist,
       - create order with that UserId and Pending status
@@ -28,7 +22,6 @@ class UserHome extends React.Component {
         - if productId doesnt exist, create new productorder with productID, orderId, quantity, and price
         - if productId does exist, update product order with new quantity and price
     */
-  }
 
   render() {
     const {products} = this.props

@@ -6,6 +6,7 @@ module.exports = router
 //create a new order
 router.post('/', async (req, res, next) => {
   try {
+    console.log('req bod', req.body)
     const order = await Order.findOrCreate({
       where: {
         userId: req.body.userId,
@@ -13,17 +14,17 @@ router.post('/', async (req, res, next) => {
       },
       defaults: {
         date: Date.now(),
-        totalOrderPrice: req.body.product.currentPrice
+        totalOrderPrice: req.body.currentPrice
       }
     })
     await ProductOrder.findOrCreate({
       where: {
-        productId: req.body.product.productId,
+        productId: req.body.id,
         orderId: order[0].id
       },
       defaults: {
         quantity: req.body.cartQuantity,
-        totalProductPrice: req.body.cartQuantity * req.body.product.currentPrice
+        totalProductPrice: req.body.cartQuantity * req.body.currentPrice
       }
     })
     // let productOrder = await ProductOrder.findOne({

@@ -21,8 +21,8 @@ class DisconnectedSingleProductDetail extends React.Component {
         Price: {selectedProduct.price}
         <img src={selectedProduct.imageUrl} />
         Description: {selectedProduct.description}
-        Quantity Add to Cart!
-        {/* <button onClick={() => {} className='remove'>X</button> */}
+        Quantity
+        {/* <button onClick={() => {} className='remove'>Add to Cart!</button> */}
       </div>
     )
   }
