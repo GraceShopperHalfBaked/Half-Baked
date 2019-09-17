@@ -41,7 +41,7 @@ const User = db.define('user', {
     allowNull: false
   },
   creditCard: {
-    type: Sequelize.INTEGER
+    type: Sequelize.BIGINT
   },
   adminStatus: {
     type: Sequelize.BOOLEAN,

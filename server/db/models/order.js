@@ -9,7 +9,7 @@ const Order = db.define('order', {
     type: Sequelize.DATE,
     allowNull: false
   },
-  totalCost: {
+  totalOrderPrice: {
     type: Sequelize.FLOAT,
     allowNull: false
   }
