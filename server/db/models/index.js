@@ -23,5 +23,6 @@ Order.belongsTo(User)
 module.exports = {
   User,
   Product,
-  Order
+  Order,
+  ProductOrder
 }
