@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-
+import {addToCart} from '../store/order'
 const singleProductSummary = props => {
   return (
     <div>
@@ -11,6 +11,12 @@ const singleProductSummary = props => {
       {/* <button onClick={() => {} className='remove'>X</button> */}
     </div>
   )
+}
+
+const mapDispatch = dispatch => {
+  return {
+    addToCart: product => dispatch(addToCart(product))
+  }
 }
 
 export default singleProductSummary
