@@ -1,10 +1,11 @@
 import React from 'react'
-import fetchSelectedProduct from '../store/product'
+import {fetchSelectedProduct} from '../store/product'
 import {connect} from 'react-redux'
 
 class DisconnectedSingleProductDetail extends React.Component {
   componentDidMount() {
     const productId = this.props.match.params.productId
+    console.log('prodid', productId)
     this.props.fetchSelectedProduct(productId)
   }
 
