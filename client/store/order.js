@@ -29,6 +29,7 @@ const updatedCartQuantity = product => {
 export const fetchCart = userId => {
   return async dispatch => {
     try {
+      // GUUUUUUUUUUUD
       const {data} = await axios.get(`/api/orders/${userId}`)
       dispatch(gotCart(data))
     } catch (error) {
@@ -51,6 +52,7 @@ export const addToCart = product => {
 export const updateCartQuantity = product => {
   return async dispatch => {
     try {
+      // could just pass product into dispatch after the await to update product info in database
       const {data} = await axios.put('/api/orders', product)
       dispatch(updatedCartQuantity(data))
     } catch (error) {
@@ -61,8 +63,10 @@ export const updateCartQuantity = product => {
 
 // INITIAL STATE
 const initialState = {
+  // you should not be handling the orderId separate from the products.
   history: [],
   cart: {
+    // probably better off as an array and not a nested object
     products: []
   }
 }
@@ -81,7 +85,7 @@ const orderReducer = (state = initialState, action) => {
         ...state,
         cart: {
           ...state.cart,
-          orderId: action.product.orderId,
+          orderId: action.product.orderId, // you should not be handling the orderId separate from the products.
           products: [...state.cart.products, action.product]
         }
       }

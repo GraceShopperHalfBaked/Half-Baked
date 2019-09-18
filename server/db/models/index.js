@@ -10,7 +10,7 @@ const ProductOrder = require('./productOrder')
  *    BlogPost.belongsTo(User)
  */
 
-Order.belongsToMany(Product, {through: ProductOrder, foreignKey: 'orderId'})
+Order.belongsToMany(Product, {through: ProductOrder, foreignKey: 'orderId'}) // just so you know, not necessary to define foreignKey here. It'll autogenerate from your models
 Product.belongsToMany(Order, {through: ProductOrder, foreignKey: 'productId'})
 User.hasMany(Order)
 Order.belongsTo(User)

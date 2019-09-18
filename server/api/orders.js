@@ -54,7 +54,7 @@ router.post('/', async (req, res, next) => {
     let productInfo = {
       ...req.body,
       orderId: order[0].id,
-      cartQuantity: req.body.cartQuantity
+      cartQuantity: req.body.cartQuantity //redundant
     }
 
     res.json(productInfo)
@@ -77,6 +77,7 @@ router.put('/', async (req, res, next) => {
       }
     )
 
+    // not necessary. Could just send back a status code to show that the update was a success
     let productInfo = {
       ...req.body,
       cartQuantity: req.body.cartQuantity

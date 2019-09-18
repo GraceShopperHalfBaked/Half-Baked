@@ -33,6 +33,7 @@ const User = db.define('user', {
     }
   },
   billingAddress: {
+    // same. be careful of empty
     type: Sequelize.STRING,
     allowNull: false
   },

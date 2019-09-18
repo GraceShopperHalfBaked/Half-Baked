@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {addToCart, updateCartQuantity, fetchCart} from '../store/order'
 import {connect} from 'react-redux'
-import {STATUS_CODES} from 'http'
+import {STATUS_CODES} from 'http' // wut?
 
 class DisconnectedSingleProductSummary extends React.Component {
   constructor() {
@@ -27,6 +27,7 @@ class DisconnectedSingleProductSummary extends React.Component {
 
   handleSubmit() {
     let productToAdd = {
+      // use const since you're not updating
       ...this.props.product,
       userId: this.props.user.id,
       orderId: this.props.cart.orderId,
@@ -34,7 +35,7 @@ class DisconnectedSingleProductSummary extends React.Component {
     }
 
     if (this.props.cart.products.length > 0) {
-      console.log('entered1')
+      console.log('entered1') // feels quirky, but I don't have anything better suggestions at the moment
       for (let index = 0; index < this.props.cart.products.length; index++) {
         if (this.props.cart.products[index].id === this.props.product.id) {
           return this.props.updateCartQuantity(productToAdd)
@@ -60,7 +61,8 @@ class DisconnectedSingleProductSummary extends React.Component {
           Quantity: {this.props.product.quantity}
         </label>
         <select id="quantity-select" onChange={this.handleChange}>
-          <option value="1">1</option>
+          <option value="1">1</option>{' '}
+          {/* minor, but could use some cool jsx here to loop up to 10 :) */}
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
