@@ -25,13 +25,15 @@ class UserHome extends React.Component {
 
   render() {
     const {products} = this.props
-    return products.map(product => {
-      return (
-        <div key={product.id}>
-          <SingleProductSummary product={product} />
-        </div>
-      )
-    })
+    return (
+      <div id="home">
+        {products.map(product => (
+          <div key={product.id}>
+            <SingleProductSummary product={product} />
+          </div>
+        ))}
+      </div>
+    )
   }
 }
 /**

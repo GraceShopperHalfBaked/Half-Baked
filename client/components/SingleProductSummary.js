@@ -34,11 +34,13 @@ class DisconnectedSingleProductSummary extends React.Component {
     return (
       <div>
         <Link to={`/products/${this.props.product.id}`}>
-          {this.props.product.name}
+          <img src={this.props.product.imageUrl} className="prod-img" />
+          <p>{this.props.product.name}</p>
         </Link>
-        <img src={this.props.product.imageUrl} />
-        Price: {this.props.product.price}
-        <label htmlFor="quantity-select"> Quantity: </label>
+        Price: {this.props.product.currentPrice}
+        <label htmlFor="quantity-select">
+          Quantity: {this.props.product.quantity}
+        </label>
         <select id="quantity-select" onChange={this.handleChange}>
           <option value="1">1</option>
           <option value="2">2</option>
