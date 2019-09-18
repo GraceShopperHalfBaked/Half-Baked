@@ -16,14 +16,7 @@ router.get('/:userId', async (req, res, next) => {
         }
       ]
     })
-
-    if (cart) {
-      res.json(cart)
-    } else {
-      res.json({
-        products: []
-      })
-    }
+    res.json(cart.products)
   } catch (error) {
     console.error(error)
   }
@@ -36,13 +29,8 @@ router.post('/', async (req, res, next) => {
       where: {
         userId: req.body.userId,
         cartStatus: 'pending'
-      },
-      defaults: {
-        date: Date.now()
       }
     })
-
-    console.log('order', order)
 
     await order[0].addProduct(req.body.id, {
       through: {
@@ -53,8 +41,7 @@ router.post('/', async (req, res, next) => {
 
     let productInfo = {
       ...req.body,
-      orderId: order[0].id,
-      cartQuantity: req.body.cartQuantity
+      orderId: order[0].id
     }
 
     res.json(productInfo)
@@ -77,29 +64,8 @@ router.put('/', async (req, res, next) => {
       }
     )
 
-    let productInfo = {
-      ...req.body,
-      cartQuantity: req.body.cartQuantity
-    }
-
-    res.json(productInfo)
+    res.sendStatus(201)
   } catch (error) {
     console.error(error)
-  }
-})
-
-//get a single product
-router.get('/:productId', async (req, res, next) => {
-  try {
-    const product = await Product.findByPk(req.params.productId)
-
-    if (!product) {
-      const error = new Error('Product not found! Error from [get]/:productId)')
-      error.status = 404
-      next(error)
-    }
-    res.json(product)
-  } catch (error) {
-    next(error)
   }
 })

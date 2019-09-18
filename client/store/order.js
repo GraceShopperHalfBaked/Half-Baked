@@ -62,9 +62,7 @@ export const updateCartQuantity = product => {
 // INITIAL STATE
 const initialState = {
   history: [],
-  cart: {
-    products: []
-  }
+  cart: []
 }
 
 // REDUCER
@@ -73,22 +71,18 @@ const orderReducer = (state = initialState, action) => {
     case GOT_CART_FROM_SERVER:
       return {
         ...state,
-        cart: action.cart
+        cart: [...action.cart]
       }
 
     case ADDED_TO_CART:
       return {
         ...state,
-        cart: {
-          ...state.cart,
-          orderId: action.product.orderId,
-          products: [...state.cart.products, action.product]
-        }
+        cart: [...state.cart, action.product]
       }
 
     case UPDATED_CART_QUANTITY:
       // eslint-disable-next-line no-case-declarations
-      let newCartProducts = [...state.cart.products].map(product => {
+      let newCartProducts = [...state.cart].map(product => {
         if (product.id === action.product.id) {
           product.cartQuantity = action.product.cartQuantity
         }
@@ -97,10 +91,7 @@ const orderReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        cart: {
-          ...state.cart,
-          products: newCartProducts
-        }
+        cart: newCartProducts
       }
 
     default:
