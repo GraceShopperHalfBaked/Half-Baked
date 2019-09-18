@@ -1,8 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {addToCart, updateCartQuantity, fetchCart} from '../store/order'
+import {addToCart, updateCartQuantity} from '../store/order'
 import {connect} from 'react-redux'
-import {STATUS_CODES} from 'http'
 
 class DisconnectedSingleProductSummary extends React.Component {
   constructor() {
@@ -14,12 +13,7 @@ class DisconnectedSingleProductSummary extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount() {
-    this.props.fetchCart(this.props.user.id)
-  }
-
   handleChange(evt) {
-    // console.log('EVT', evt.target.value)
     this.setState({
       cartQuantity: evt.target.value
     })
@@ -28,22 +22,21 @@ class DisconnectedSingleProductSummary extends React.Component {
   handleSubmit() {
     let productToAdd = {
       ...this.props.product,
-      userId: this.props.user.id,
-      orderId: this.props.cart.orderId,
+      userId: this.props.userId,
+      orderId: this.props.cart[0]
+        ? this.props.cart[0].orderId || this.props.cart[0].productOrder.orderId
+        : null,
       cartQuantity: this.state.cartQuantity
     }
 
-    if (this.props.cart.products.length > 0) {
-      console.log('entered1')
-      for (let index = 0; index < this.props.cart.products.length; index++) {
-        if (this.props.cart.products[index].id === this.props.product.id) {
+    if (this.props.cart.length > 0) {
+      for (let index = 0; index < this.props.cart.length; index++) {
+        if (this.props.cart[index].id === this.props.product.id) {
           return this.props.updateCartQuantity(productToAdd)
         }
       }
-      console.log('entered2')
       return this.props.addToCart(productToAdd)
     } else {
-      console.log('entered3')
       return this.props.addToCart(productToAdd)
     }
   }
@@ -55,10 +48,8 @@ class DisconnectedSingleProductSummary extends React.Component {
           <img src={this.props.product.imageUrl} className="prod-img" />
           <p>{this.props.product.name}</p>
         </Link>
-        Price: {this.props.product.currentPrice}
-        <label htmlFor="quantity-select">
-          Quantity: {this.props.product.quantity}
-        </label>
+        <div>Price: {this.props.product.currentPrice}</div>
+
         <select id="quantity-select" onChange={this.handleChange}>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -79,22 +70,22 @@ class DisconnectedSingleProductSummary extends React.Component {
   }
 }
 
-const mapState = state => {
-  return {
-    user: state.user,
-    cart: state.order.cart
-  }
-}
+// const mapState = state => {
+//   return {
+//     // user: state.user,
+//     // cart: state.order.cart
+//   }
+// }
 
 const mapDispatch = dispatch => {
   return {
     addToCart: product => dispatch(addToCart(product)),
-    updateCartQuantity: product => dispatch(updateCartQuantity(product)),
-    fetchCart: userId => dispatch(fetchCart(userId))
+    updateCartQuantity: product => dispatch(updateCartQuantity(product))
+    // fetchCart: userId => dispatch(fetchCart(userId))
   }
 }
 
-const SingleProductSummary = connect(mapState, mapDispatch)(
+const SingleProductSummary = connect(null, mapDispatch)(
   DisconnectedSingleProductSummary
 )
 

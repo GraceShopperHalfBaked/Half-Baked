@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import SingleProductSummary from './SingleProductSummary'
 import {fetchProducts} from '../store/product'
+import {fetchCart} from '../store/order'
 
 /**
  * COMPONENT
@@ -10,6 +11,7 @@ import {fetchProducts} from '../store/product'
 class UserHome extends React.Component {
   componentDidMount() {
     this.props.getProducts()
+    this.props.fetchCart(this.props.user.id)
   }
 
   /*
@@ -29,7 +31,11 @@ class UserHome extends React.Component {
       <div id="home">
         {products.map(product => (
           <div key={product.id}>
-            <SingleProductSummary product={product} />
+            <SingleProductSummary
+              product={product}
+              userId={this.props.user.id}
+              cart={this.props.cart}
+            />
           </div>
         ))}
       </div>
@@ -41,13 +47,16 @@ class UserHome extends React.Component {
  */
 const mapState = state => {
   return {
+    user: state.user,
+    cart: state.order.cart,
     products: state.product.all
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getProducts: () => dispatch(fetchProducts())
+    getProducts: () => dispatch(fetchProducts()),
+    fetchCart: userId => dispatch(fetchCart(userId))
   }
 }
 

@@ -5,10 +5,7 @@ const Order = db.define('order', {
   cartStatus: {
     type: Sequelize.ENUM('pending', 'purchased')
   },
-  date: {
-    type: Sequelize.DATE,
-    allowNull: false
-  },
+
   totalOrderPrice: {
     type: Sequelize.FLOAT
   }

@@ -7,7 +7,7 @@ import {logout} from '../store'
 import Home from './user-home'
 import CartMain from './CartMain'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
   <div>
     {/* <h1>BOILERMAKER</h1> */}
     <nav>
@@ -33,7 +33,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <img
             src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
             id="checkout-icon"
-          />{' '}
+          />
+
+          {cartQuantity || 0}
         </div>
       ) : (
         <div>
@@ -70,7 +72,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cartQuantity: state.order.cart.length
   }
 }
 
