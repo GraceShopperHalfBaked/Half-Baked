@@ -1,35 +1,45 @@
 import React from 'react'
-// import 'fetch the orders thunk'
 import {connect} from 'react-redux'
-import cartSummary from './CartSummary'
+
+import SingleCartItem from './SingleCartItem'
+import CartSummary from './CartSummary'
 
 class DisconnectedCartMain extends React.Component {
-  componentDidMount() {}
+  componentDidMount() {
+    // const orderId = this.props.match.params.orderId
+    // this.props.fetchCart(orderId)
+  }
 
   render() {
+    const {allCartItems} = this.props
+    console.log(allCartItems)
     return (
       <div>
-        <div>Cart - Items: {'props.orders.length'}</div>
-        'MAP OVER THE ORDERS ARRAY AND POPULATE img, name, count, price'
-        <cartSummary />
+        {allCartItems.map(cartItem => {
+          return (
+            <div key={cartItem.id}>
+              <SingleCartItem cartItem={cartItem} />
+            </div>
+          )
+        })}
+        <CartSummary /> //need to pass some cart order info as props
       </div>
     )
   }
 }
+
 const mapStateToProps = state => {
   return {
-    allCartItems: state.cart.all
+    allCartItems: state.order.cart
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchAllCartItems: orderId => dispatch(fetchAllCartItems(orderId))
-  }
-}
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     fetchCart: orderId => dispatch(fetchCart(orderId))
+//   }
+// }
 
-const CartMain = connect(mapStateToProps, mapDispatchToProps)(
-  DisconnectedCartMain
-)
+const CartMain = connect(mapStateToProps)(DisconnectedCartMain)
 
 export default CartMain
