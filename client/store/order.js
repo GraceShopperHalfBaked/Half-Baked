@@ -59,7 +59,7 @@ const orderReducer = (state = initialState, action) => {
     case ADDED_TO_CART:
       return {
         ...state,
-        cart: action.cart
+        cart: [...state.cart, action.product]
       }
 
     default:

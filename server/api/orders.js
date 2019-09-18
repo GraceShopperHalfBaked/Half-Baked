@@ -6,7 +6,6 @@ module.exports = router
 //create a new order
 router.post('/', async (req, res, next) => {
   try {
-    console.log('req bod', req.body)
     const order = await Order.findOrCreate({
       where: {
         userId: req.body.userId,
@@ -55,9 +54,11 @@ router.post('/', async (req, res, next) => {
     // }
 
     let productInfo = {
-      ...req.body.product,
+      ...req.body,
       cartQuantity: req.body.cartQuantity
     }
+    console.log('reqbody', req.body)
+    console.log('prodInfo', productInfo)
     res.json(productInfo)
   } catch (err) {
     next(err)
