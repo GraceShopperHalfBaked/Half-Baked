@@ -3,6 +3,26 @@ const {Order, ProductOrder, Product} = require('../db/models')
 
 module.exports = router
 
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const cart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        cartStatus: 'pending'
+      },
+      include: [
+        {
+          model: Product
+        }
+      ]
+    })
+
+    res.json(cart)
+  } catch (error) {
+    console.error(error)
+  }
+})
+
 //create a new order
 router.post('/', async (req, res, next) => {
   try {
@@ -12,56 +32,52 @@ router.post('/', async (req, res, next) => {
         cartStatus: 'pending'
       },
       defaults: {
-        date: Date.now(),
-        totalOrderPrice: req.body.currentPrice
+        date: Date.now()
       }
     })
-    await ProductOrder.findOrCreate({
-      where: {
-        productId: req.body.id,
-        orderId: order[0].id
-      },
-      defaults: {
+
+    console.log('order', order)
+
+    await order[0].addProduct(req.body.id, {
+      through: {
         quantity: req.body.cartQuantity,
         totalProductPrice: req.body.cartQuantity * req.body.currentPrice
       }
     })
-    // let productOrder = await ProductOrder.findOne({
-    //   where: {
-    //     productId: req.body.product.productId,
-    //     orderId: order[0].id
-    //   }
-    // })
-
-    // if (productOrder) {
-    //   await ProductOrder.update(
-    //     {
-    //       quantity: req.body.cartQuantity
-    //     },
-    //     {
-    //       where: {
-    //         productId: req.body.product.productId,
-    //         orderId: order[0].id
-    //       }
-    //     }
-    //   )
-    // } else {
-    //   await ProductOrder.create({
-    //     productId: req.body.product.productId,
-    //     orderId: order[0].id,
-    //     quantity: req.body.cartQuantity
-    //   })
-    // }
 
     let productInfo = {
       ...req.body,
       cartQuantity: req.body.cartQuantity
     }
-    console.log('reqbody', req.body)
-    console.log('prodInfo', productInfo)
+
     res.json(productInfo)
   } catch (err) {
     next(err)
+  }
+})
+
+router.put('/', async (req, res, next) => {
+  try {
+    await ProductOrder.update(
+      {
+        quantity: req.body.cartQuantity
+      },
+      {
+        where: {
+          productId: req.body.id,
+          orderId: 2
+        }
+      }
+    )
+
+    let productInfo = {
+      ...req.body,
+      cartQuantity: req.body.cartQuantity
+    }
+
+    res.json(productInfo)
+  } catch (error) {
+    console.error(error)
   }
 })
 

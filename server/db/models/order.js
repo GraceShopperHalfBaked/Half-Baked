@@ -10,8 +10,7 @@ const Order = db.define('order', {
     allowNull: false
   },
   totalOrderPrice: {
-    type: Sequelize.FLOAT,
-    allowNull: false
+    type: Sequelize.FLOAT
   }
 })
 
