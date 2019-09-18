@@ -1,22 +1,22 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {fetchSingleCart} from '../store/order'
+import {fetchCart} from '../store/order'
 import SingleCartItem from './SingleCartItem'
 import CartSummary from './CartSummary'
 
 class DisconnectedCartMain extends React.Component {
   componentDidMount() {
     const orderId = this.props.match.params.orderId
-    this.props.fetchSingleCart(orderId)
+    this.props.fetchCart(orderId)
   }
 
   render() {
-    const cartItems = this.props.cartItems
+    const allCartItems = this.props.allCartItems
 
     return (
       <div>
-        {cartItems.map(cartItem => {
+        {allCartItems.map(cartItem => {
           return (
             <div key={cartItem.id}>
               <SingleCartItem cartItem={cartItem} />
@@ -31,13 +31,13 @@ class DisconnectedCartMain extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    allCartItems: state.cart.all
+    allCartItems: state.cart
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchSingleCart: orderId => dispatch(fetchSingleCart(orderId))
+    fetchCart: orderId => dispatch(fetchCart(orderId))
   }
 }
 
