@@ -108,3 +108,13 @@ a#inner-links {
   padding-left: 10px;
   max-width: 500px;
 }
+
+/* Cart main comp */
+
+#cart-main {
+  display: flex;
+}
+
+#cart-side {
+  background-color: blanchedalmond;
+}

@@ -13,6 +13,19 @@ const AuthForm = props => {
     <div>
       <form onSubmit={handleSubmit} name={name}>
         <div>
+          <label htmlFor="firstName">
+            <small>First Name</small>
+          </label>
+          <input name="firstName" type="text" />
+        </div>
+
+        <div>
+          <label htmlFor="lastName">
+            <small>Last Name</small>
+          </label>
+          <input name="lastName" type="text" />
+        </div>
+        <div>
           <label htmlFor="email">
             <small>Email</small>
           </label>
@@ -20,7 +33,7 @@ const AuthForm = props => {
         </div>
         <div>
           <label htmlFor="password">
-            <small>Password</small>
+            <small>PassWORD</small>
           </label>
           <input name="password" type="password" />
         </div>
@@ -41,13 +54,14 @@ const AuthForm = props => {
  *   function, and share the same Component. This is a good example of how we
  *   can stay DRY with interfaces that are very similar to each other!
  */
-const mapLogin = state => {
-  return {
-    name: 'login',
-    displayName: 'Login',
-    error: state.user.error
-  }
-}
+
+// const mapLogin = state => {
+//   return {
+//     name: 'login',
+//     displayName: 'Login',
+//     error: state.user.error
+//   }
+// }
 
 const mapSignup = state => {
   return {
@@ -62,15 +76,17 @@ const mapDispatch = dispatch => {
     handleSubmit(evt) {
       evt.preventDefault()
       const formName = evt.target.name
+      const firstName = evt.target.firstName.value
+      const lastName = evt.target.lastName.value
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      dispatch(auth(email, password, formName, firstName, lastName))
     }
   }
 }
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-// export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+// export const Login = connect(mapLogin, mapDispatch)(AuthForm)
+export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
 
 /**
  * PROP TYPES

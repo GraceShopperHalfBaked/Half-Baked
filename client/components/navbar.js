@@ -30,10 +30,12 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-          <img
-            src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
-            id="checkout-icon"
-          />{' '}
+          <Link to="/order/1">
+            <img
+              src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
+              id="checkout-icon"
+            />
+          </Link>
         </div>
       ) : (
         <div>
