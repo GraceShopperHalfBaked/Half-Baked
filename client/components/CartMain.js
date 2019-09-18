@@ -22,7 +22,7 @@ class DisconnectedCartMain extends React.Component {
             </div>
           )
         })}
-        <CartSummary /> //need to pass some cart order info as props
+        <CartSummary />
       </div>
     )
   }

@@ -20,7 +20,7 @@ class DisconnectedSingleProductSummary extends React.Component {
   }
 
   handleSubmit() {
-    let productToAdd = {
+    const productToAdd = {
       ...this.props.product,
       userId: this.props.userId,
       orderId: this.props.cart[0]
@@ -30,6 +30,7 @@ class DisconnectedSingleProductSummary extends React.Component {
     }
 
     if (this.props.cart.length > 0) {
+      //----------------revisit------------------------------
       for (let index = 0; index < this.props.cart.length; index++) {
         if (this.props.cart[index].id === this.props.product.id) {
           return this.props.updateCartQuantity(productToAdd)
@@ -49,7 +50,7 @@ class DisconnectedSingleProductSummary extends React.Component {
           <p>{this.props.product.name}</p>
         </Link>
         <div>Price: {this.props.product.currentPrice}</div>
-
+        {/* see if better way to do this - revisit-------------------------*/}
         <select id="quantity-select" onChange={this.handleChange}>
           <option value="1">1</option>
           <option value="2">2</option>
