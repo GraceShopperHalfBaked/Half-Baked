@@ -16,13 +16,18 @@ class DisconnectedSingleProductDetail extends React.Component {
   render() {
     const {selectedProduct} = this.props
     return (
-      <div>
-        {selectedProduct.name}
-        Price: {selectedProduct.price}
-        <img src={selectedProduct.imageUrl} />
-        Description: {selectedProduct.description}
-        Quantity
-        {/* <button onClick={() => {} className='remove'>Add to Cart!</button> */}
+      <div id="single-detail">
+        <div>
+          <img src={selectedProduct.imageUrl} id="single-img-details" />
+        </div>
+        <div id="single-prod-info">
+          <h3>{selectedProduct.name}</h3>
+          <p>Price: {selectedProduct.currentPrice}</p>
+          {selectedProduct.description}
+          <p>Quantity: {selectedProduct.quantity}</p>
+          <button>Add to Cart!</button>
+          {/* <button onClick={() => {} className='remove'>Add to Cart!</button> */}
+        </div>
       </div>
     )
   }
