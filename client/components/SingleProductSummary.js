@@ -1,7 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {addToCart} from '../store/order'
+import {addToCart, updateCartQuantity, fetchCart} from '../store/order'
 import {connect} from 'react-redux'
+import {STATUS_CODES} from 'http'
 
 class DisconnectedSingleProductSummary extends React.Component {
   constructor() {
@@ -11,6 +12,10 @@ class DisconnectedSingleProductSummary extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.fetchCart(this.props.user.id)
   }
 
   handleChange(evt) {
@@ -24,10 +29,23 @@ class DisconnectedSingleProductSummary extends React.Component {
     let productToAdd = {
       ...this.props.product,
       userId: this.props.user.id,
+      orderId: this.props.cart.orderId,
       cartQuantity: this.state.cartQuantity
     }
 
-    this.props.addToCart(productToAdd)
+    if (this.props.cart.products.length > 0) {
+      console.log('entered1')
+      for (let index = 0; index < this.props.cart.products.length; index++) {
+        if (this.props.cart.products[index].id === this.props.product.id) {
+          return this.props.updateCartQuantity(productToAdd)
+        }
+      }
+      console.log('entered2')
+      return this.props.addToCart(productToAdd)
+    } else {
+      console.log('entered3')
+      return this.props.addToCart(productToAdd)
+    }
   }
 
   render() {
@@ -61,13 +79,16 @@ class DisconnectedSingleProductSummary extends React.Component {
 
 const mapState = state => {
   return {
-    user: state.user
+    user: state.user,
+    cart: state.order.cart
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    addToCart: product => dispatch(addToCart(product))
+    addToCart: product => dispatch(addToCart(product)),
+    updateCartQuantity: product => dispatch(updateCartQuantity(product)),
+    fetchCart: userId => dispatch(fetchCart(userId))
   }
 }
 
