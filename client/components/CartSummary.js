@@ -1,8 +1,7 @@
 import React from 'react'
 // import 'fetch cart order stuff here'
-import {connect} from 'react-redux'
 
-const cartSummary = props => {
+const CartSummary = props => {
   return (
     <div>
       {/* Subtotal: {props.'ORDERS totalOrderPrice'}
@@ -15,4 +14,4 @@ const cartSummary = props => {
   )
 }
 
-// export default CartSummary
+export default CartSummary
