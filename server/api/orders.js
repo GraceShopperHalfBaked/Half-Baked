@@ -17,7 +17,13 @@ router.get('/:userId', async (req, res, next) => {
       ]
     })
 
-    res.json(cart)
+    if (cart) {
+      res.json(cart)
+    } else {
+      res.json({
+        products: []
+      })
+    }
   } catch (error) {
     console.error(error)
   }
@@ -47,6 +53,7 @@ router.post('/', async (req, res, next) => {
 
     let productInfo = {
       ...req.body,
+      orderId: order[0].id,
       cartQuantity: req.body.cartQuantity
     }
 
@@ -65,7 +72,7 @@ router.put('/', async (req, res, next) => {
       {
         where: {
           productId: req.body.id,
-          orderId: 2
+          orderId: req.body.orderId
         }
       }
     )

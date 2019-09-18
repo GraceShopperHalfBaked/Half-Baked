@@ -29,17 +29,21 @@ class DisconnectedSingleProductSummary extends React.Component {
     let productToAdd = {
       ...this.props.product,
       userId: this.props.user.id,
+      orderId: this.props.cart.orderId,
       cartQuantity: this.state.cartQuantity
     }
 
-    if (this.props.cart.products) {
+    if (this.props.cart.products.length > 0) {
+      console.log('entered1')
       for (let index = 0; index < this.props.cart.products.length; index++) {
         if (this.props.cart.products[index].id === this.props.product.id) {
           return this.props.updateCartQuantity(productToAdd)
         }
       }
+      console.log('entered2')
       return this.props.addToCart(productToAdd)
     } else {
+      console.log('entered3')
       return this.props.addToCart(productToAdd)
     }
   }
