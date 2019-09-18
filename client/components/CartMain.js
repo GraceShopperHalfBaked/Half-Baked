@@ -5,11 +5,6 @@ import SingleCartItem from './SingleCartItem'
 import CartSummary from './CartSummary'
 
 class DisconnectedCartMain extends React.Component {
-  componentDidMount() {
-    // const orderId = this.props.match.params.orderId
-    // this.props.fetchCart(orderId)
-  }
-
   render() {
     const {allCartItems} = this.props
     console.log(allCartItems)
@@ -22,7 +17,7 @@ class DisconnectedCartMain extends React.Component {
             </div>
           )
         })}
-        <CartSummary /> //need to pass some cart order info as props
+        <CartSummary />
       </div>
     )
   }
