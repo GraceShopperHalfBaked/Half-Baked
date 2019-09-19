@@ -13,16 +13,18 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "halfBaked-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
-  - npm test             # test the code
+  - npm test # test the code
   - npm run build-client # make the bundle
-
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy: # omit node_modules, since we set skip_cleanup below
+  - rm -rf node_modules
+deploy: # see README for details on these keys
+  # prevents travis from deleting the build
+  skip_cleanup: true
+  provider: heroku
+  # app should be your heroku app name; see README
+  app: halfbaked-graceshopper
+  # the secure key indicates an encrypted value; see README
+  api_key:
+    secure: C4QG8y8PtUKT5iOwukbKmflkoDfx0rdDbRN1ph5kJ15LHdZT3om9Pxy5j3Z/MgOWsYW92TRyXXGzafHgxG6cxsbXnihM1StiLfI6zHFSHsQjn2Idr+58M3Nl5OnLF2MJ0zl6jVbKuAFU8lKitKaPmJ4pIBZmzABHoiqViWdELgLqnevCf4UuvfnoS9ys1HpGU/GL/94T/I9GyOmZBLUF+nIPSxP49uPjnucHXp3e7/8LPAiT8eLf/HOJ7KWpD8+bid+xYVij3gh4t/DY1xTfmahCq2hoNt4R1/Cp9Ooc+jBvYxTjdm1mWrs4c7Bcpbm99rmwmCsyC/d4e6XPl1V5taw6m54CoGebhEyeRBfuAvluTotapKrjoqUwpjbqqsqRUNSU1P5RETAZvh8zyOsoX0WHX95eJ57/hdq2ovOKzz50NMiHRqF8bt0I4AQkEsoU7tqcBIt7aODX37JquddXzr3taA7TjkJvRbk0GT3EjlWuLrpP6UjnADt2cGjiydgvnrr+vVDydCcebzIrgcWqAEEzrKFcUxwjUX3xOMLaKgeSQgUhvhnxVNbWB7pmk5Vthh7U8fYGio4TjJ8bz9pIoTlfuixoJDN7yaYdZwwzG2gOWo5GmpXK4w1QcbGDSR4hUOCIEmJhKMnhV5pGoQlXOeY9HCxWeJyMteTUcJR0RqQ=
