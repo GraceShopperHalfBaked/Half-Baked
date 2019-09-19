@@ -20,13 +20,14 @@ const CartSummary = props => {
 
   return (
     <div id="sidebar">
-      <hr size="6" width="50%" align="left" color="green" />
       <p>
         <strong>Subtotal:</strong> ${totalOrderPrice}
       </p>
+      <hr id="hr-cart" />
       <p>Estimated Shipping: FREE</p>
       <p>Estimated Tax: ${totalOrderTax}</p>
       <p>
+        <hr id="hr-cart" />
         <strong>Estimated Total: ${totalOrderPriceWithTax}</strong>
       </p>
 

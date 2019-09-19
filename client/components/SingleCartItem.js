@@ -1,4 +1,5 @@
 import React from 'react'
+import AddToCart from './AddToCart'
 
 const SingleCartItem = props => {
   const {cartItem} = props
@@ -32,6 +33,7 @@ const SingleCartItem = props => {
             Remove Item
           </button>
         </p>
+        <AddToCart product={cartItem} />
       </div>
     </div>
   )
