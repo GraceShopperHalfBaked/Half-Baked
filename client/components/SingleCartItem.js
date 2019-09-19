@@ -5,8 +5,10 @@ const singleCartItem = props => {
     <div>
       <img src={props.cartItem.imageUrl} />
       <h3>{props.cartItem.name}</h3>
-      Quantity: {props.cartItem.quantity}
-      Price: {props.cartItem.totalProductPrice}
+      Quantity: {props.cartItem.productOrder.quantity}
+      Price: {props.cartItem.currentPrice}
+      Total Price:{' '}
+      {props.cartItem.currentPrice * props.cartItem.productOrder.quantity}
     </div>
   )
 }
