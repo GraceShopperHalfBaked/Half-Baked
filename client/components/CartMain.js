@@ -7,7 +7,7 @@ import CartSummary from './CartSummary'
 class DisconnectedCartMain extends React.Component {
   render() {
     const {allCartItems} = this.props
-    console.log(allCartItems)
+
     return (
       <div>
         {allCartItems.map(cartItem => {
@@ -17,7 +17,7 @@ class DisconnectedCartMain extends React.Component {
             </div>
           )
         })}
-        <CartSummary />
+        <CartSummary allCartItems={allCartItems} />
       </div>
     )
   }
@@ -28,12 +28,6 @@ const mapStateToProps = state => {
     allCartItems: state.order.cart
   }
 }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     fetchCart: orderId => dispatch(fetchCart(orderId))
-//   }
-// }
 
 const CartMain = connect(mapStateToProps)(DisconnectedCartMain)
 

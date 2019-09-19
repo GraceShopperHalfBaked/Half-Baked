@@ -1,14 +1,14 @@
 import React from 'react'
 
-const singleCartItem = props => {
+const SingleCartItem = props => {
   return (
     <div>
       <img src={props.cartItem.imageUrl} />
       <h3>{props.cartItem.name}</h3>
-      Quantity: {props.cartItem.quantity}
-      Price: {props.cartItem.totalProductPrice}
+      <p>Quantity: {props.cartItem.productOrder.quantity}</p>
+      <p>Price: {props.cartItem.productOrder.totalProductPrice}</p>
     </div>
   )
 }
 
-export default singleCartItem
+export default SingleCartItem
