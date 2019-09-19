@@ -19,7 +19,7 @@ const CartSummary = props => {
   const totalOrderPriceWithTax = Number(totalOrderPrice) + Number(totalOrderTax)
 
   return (
-    <div>
+    <div id="sidebar">
       <hr size="6" width="50%" align="left" color="green" />
       <p>
         <strong>Subtotal:</strong> ${totalOrderPrice}

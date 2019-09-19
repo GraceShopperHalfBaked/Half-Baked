@@ -25,6 +25,7 @@ class DisconnectedCartMain extends React.Component {
                   cartItem={cartItem}
                   removingCartItem={this.props.removingCartItem}
                 />
+                <hr id="hr-cart" />
               </div>
             )
           })}
