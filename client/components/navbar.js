@@ -9,7 +9,6 @@ import CartMain from './CartMain'
 
 const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
   <div>
-    {/* <h1>BOILERMAKER</h1> */}
     <nav>
       {isLoggedIn ? (
         <div>
@@ -30,10 +29,12 @@ const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-          <img
-            src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
-            id="checkout-icon"
-          />
+          <Link to="/cart">
+            <img
+              src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
+              id="checkout-icon"
+            />
+          </Link>
 
           {cartQuantity || 0}
         </div>
@@ -56,10 +57,13 @@ const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
           <Link to="/signup" className="navLink">
             Sign Up
           </Link>
-          <img
-            src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
-            id="checkout-icon"
-          />
+          <Link to="/cart">
+            <img
+              src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
+              id="checkout-icon"
+            />{' '}
+            here
+          </Link>
         </div>
       )}
     </nav>

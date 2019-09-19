@@ -51,8 +51,10 @@ export const addToCart = product => {
 export const updateCartQuantity = product => {
   return async dispatch => {
     try {
+      console.log('upprod', product)
       const {data} = await axios.put('/api/orders', product)
-      dispatch(updatedCartQuantity(data))
+      console.log('data', data)
+      dispatch(updatedCartQuantity(product))
     } catch (error) {
       console.error(error)
     }

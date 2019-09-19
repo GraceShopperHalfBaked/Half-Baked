@@ -7,7 +7,7 @@ import CartSummary from './CartSummary'
 class DisconnectedCartMain extends React.Component {
   render() {
     const {allCartItems} = this.props
-    console.log(allCartItems)
+    console.log('allcart', allCartItems)
     return (
       <div>
         {allCartItems.map(cartItem => {
