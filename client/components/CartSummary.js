@@ -30,7 +30,9 @@ const CartSummary = props => {
         <strong>Estimated Total: ${totalOrderPriceWithTax}</strong>
       </p>
 
-      <button>CHECKOUT HERE!</button>
+      <button type="button" onClick={() => props.processCheckout()}>
+        CHECKOUT HERE!
+      </button>
       {/* <button>STRIPE CHECKOUT HERE!</button> */}
     </div>
   )

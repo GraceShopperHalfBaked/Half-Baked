@@ -5,8 +5,14 @@ const GOT_CART_FROM_SERVER = 'GOT_CART_FROM_SERVER'
 const ADDED_TO_CART = 'ADDED_TO_CART'
 const UPDATED_CART_QUANTITY = 'UPDATED_CART_QUANTITY'
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
+const CHECKOUT = 'CHECKOUT'
 
 // ACTION CREATORS
+const checkout = cart => ({
+  type: CHECKOUT,
+  cart
+})
+
 const gotCart = cart => ({
   type: GOT_CART_FROM_SERVER,
   cart
@@ -36,6 +42,17 @@ const removeFromCart = (orderId, prodId) => {
 }
 
 // THUNK CREATOR for CART
+export const processCheckout = cart => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('/api/orders', cart)
+      dispatch(checkout(data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
 export const fetchCart = userId => {
   return async dispatch => {
     try {
@@ -126,6 +143,11 @@ const orderReducer = (state = initialState, action) => {
         })
       }
 
+    case CHECKOUT:
+      return {
+        ...state,
+        cart: [...state.cart, action.cart]
+      }
     default:
       return state
   }

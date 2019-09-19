@@ -70,6 +70,24 @@ router.put('/', async (req, res, next) => {
   }
 })
 
+router.put('/checkout', async (req, res, next) => {
+  try {
+    await Order.update(
+      {
+        cartStatus: 'purchased'
+      },
+      {
+        where: {
+          id: req.body.orderId
+        }
+      }
+    )
+    res.sendStatus(201)
+  } catch (error) {
+    console.error(error)
+  }
+})
+
 router.delete('/:orderId/:productId', async (req, res, next) => {
   try {
     await ProductOrder.destroy({
