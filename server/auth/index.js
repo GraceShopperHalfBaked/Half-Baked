@@ -51,16 +51,9 @@ router.get('/me', (req, res) => {
 })
 
 router.get('/guest', (req, res, next) => {
-  console.log('req before', req.user)
-  // req.session.user = 'guest'
-  console.log('req after', req.user)
-  console.log('req session', req.session)
-
-  let guestUser = {guest: true}
+  let guestUser = {guest: 'guest'}
 
   req.login(guestUser, err => (err ? next(err) : res.json(guestUser)))
-
-  // res.send(req.session.user)
 })
 
 router.use('/google', require('./google'))

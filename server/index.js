@@ -29,14 +29,25 @@ if (process.env.NODE_ENV === 'test') {
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
 // passport registration
-passport.serializeUser((user, done) => done(null, user.id))
+passport.serializeUser((user, done) => {
+  if (user.guest) {
+    done(null, user.guest)
+  } else {
+    done(null, user.id)
+  }
+})
 
 passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await db.models.user.findByPk(id)
-    done(null, user)
-  } catch (err) {
-    done(err)
+  if (id === 'guest') {
+    done(null, id)
+  } else {
+    try {
+      const user = await db.models.user.findByPk(id)
+      done(null, user)
+      done()
+    } catch (err) {
+      done(err)
+    }
   }
 })
 
@@ -66,7 +77,6 @@ const createApp = () => {
 
   app.use((req, res, next) => {
     console.log('SESSION: ', req.session)
-    console.log('USER: ', req.user)
     next()
   })
 

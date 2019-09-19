@@ -43,7 +43,7 @@ export const guest = () => async dispatch => {
     await axios.get('/auth/guest')
     // console.log('------------entered')
     dispatch(continueAsGuest())
-    // history.push('/home')
+    history.push('/home')
   } catch (err) {
     console.error(err)
   }
