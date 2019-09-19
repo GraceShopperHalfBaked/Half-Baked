@@ -69,3 +69,16 @@ router.put('/', async (req, res, next) => {
     console.error(error)
   }
 })
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    await Order.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    res.sendStatus(204)
+  } catch (error) {
+    console.error(error)
+  }
+})
