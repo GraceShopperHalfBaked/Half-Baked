@@ -108,3 +108,10 @@ a#inner-links {
   padding-left: 10px;
   max-width: 500px;
 }
+
+/* Cart view */
+
+.cart-main {
+  display: flex;
+  justify-content: center;
+}

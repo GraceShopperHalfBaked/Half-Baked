@@ -15,18 +15,23 @@ class DisconnectedCartMain extends React.Component {
     const {allCartItems} = this.props
     // const {removingCartItem} = this.props
     return (
-      <div>
-        {allCartItems.map(cartItem => {
-          return (
-            <div key={cartItem.id}>
-              <SingleCartItem
-                cartItem={cartItem}
-                removingCartItem={this.props.removingCartItem}
-              />
-            </div>
-          )
-        })}
-        <CartSummary allCartItems={allCartItems} />
+      <div className="cart-main">
+        <div>
+          {allCartItems.map(cartItem => {
+            return (
+              <div key={cartItem.id}>
+                <SingleCartItem
+                  cartItem={cartItem}
+                  removingCartItem={this.props.removingCartItem}
+                />
+              </div>
+            )
+          })}
+        </div>
+
+        <div>
+          <CartSummary allCartItems={allCartItems} />
+        </div>
       </div>
     )
   }
