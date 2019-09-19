@@ -5,7 +5,7 @@ const SingleCartItem = props => {
   const {removingCartItem} = props
   return (
     <div>
-      <img src={cartItem.imageUrl} />
+      <img src={cartItem.imageUrl} className="prod-img" />
       <h3>{cartItem.name}</h3>
       <p>
         Quantity:{' '}
