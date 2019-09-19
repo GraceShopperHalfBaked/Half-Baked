@@ -10,6 +10,7 @@ const SingleCartItem = props => {
       <h3>{cartItem.name}</h3>
       <p>Quantity: {cartItem.productOrder.quantity}</p>
       <p>Price: {cartItem.productOrder.totalProductPrice}</p>
+      Total Price: {cartItem.currentPrice * cartItem.productOrder.quantity}
       <button type="submit" onClick={() => removingCartItem(cartItem.id)}>
         Remove Item
       </button>

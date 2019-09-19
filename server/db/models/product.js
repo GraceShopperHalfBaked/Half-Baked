@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+//isempty - allownull --revisit
+// beware floating ---------revisit
 const Product = db.define('product', {
   name: {
     type: Sequelize.STRING,

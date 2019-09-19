@@ -9,7 +9,6 @@ import CartMain from './CartMain'
 
 const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
   <div>
-    {/* <h1>BOILERMAKER</h1> */}
     <nav>
       {isLoggedIn ? (
         <div>
@@ -62,7 +61,8 @@ const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
             <img
               src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
               id="checkout-icon"
-            />
+            />{' '}
+            here
           </Link>
         </div>
       )}

@@ -3,9 +3,10 @@ const db = require('../db')
 
 const Order = db.define('order', {
   cartStatus: {
-    type: Sequelize.ENUM('pending', 'purchased')
+    type: Sequelize.ENUM('pending', 'purchased'),
+    defaultValue: 'pending'
   },
-
+  // beware floating ---------revisit
   totalOrderPrice: {
     type: Sequelize.FLOAT
   }

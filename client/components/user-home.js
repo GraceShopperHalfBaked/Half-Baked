@@ -14,17 +14,6 @@ class UserHome extends React.Component {
     this.props.fetchCart(this.props.user.id)
   }
 
-  /*
-    - dispatches orders thunk, which checks if any orders match userId with a pending status (findorcreate)
-    - if pendingOrder doesn't exist,
-      - create order with that UserId and Pending status
-      - create ProductOrder with productID, orderId, quantity, and price
-    - if pendingOrder does exist
-      - search productorder for that orderId, and given productId
-        - if productId doesnt exist, create new productorder with productID, orderId, quantity, and price
-        - if productId does exist, update product order with new quantity and price
-    */
-
   render() {
     const {products} = this.props
     return (

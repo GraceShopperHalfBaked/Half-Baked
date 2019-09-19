@@ -1,17 +1,15 @@
 import React from 'react'
 import {fetchSelectedProduct} from '../store/product'
 import {connect} from 'react-redux'
+import AddToCart from './AddToCart'
+import {fetchCart} from '../store/order'
 
 class DisconnectedSingleProductDetail extends React.Component {
   componentDidMount() {
     const productId = this.props.match.params.productId
-    console.log('prodid', productId)
     this.props.fetchSelectedProduct(productId)
+    this.props.fetchCart(this.props.user.id)
   }
-
-  // addToCart() {
-
-  // }
 
   render() {
     const {selectedProduct} = this.props
@@ -24,9 +22,7 @@ class DisconnectedSingleProductDetail extends React.Component {
           <h3>{selectedProduct.name}</h3>
           <p>Price: {selectedProduct.currentPrice}</p>
           {selectedProduct.description}
-          <p>Quantity: {selectedProduct.quantity}</p>
-          <button>Add to Cart!</button>
-          {/* <button onClick={() => {} className='remove'>Add to Cart!</button> */}
+          <AddToCart product={selectedProduct} />
         </div>
       </div>
     )
@@ -35,13 +31,16 @@ class DisconnectedSingleProductDetail extends React.Component {
 
 const mapState = state => {
   return {
+    user: state.user,
     selectedProduct: state.product.selected
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    fetchSelectedProduct: productId => dispatch(fetchSelectedProduct(productId))
+    fetchSelectedProduct: productId =>
+      dispatch(fetchSelectedProduct(productId)),
+    fetchCart: userId => dispatch(fetchCart(userId))
   }
 }
 
