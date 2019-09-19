@@ -41,8 +41,13 @@ const removeFromCart = id => {
 export const fetchCart = userId => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/orders/${userId}`)
-      dispatch(gotCart(data))
+      if (userId) {
+        const {data} = await axios.get(`/api/orders/${userId}`)
+        dispatch(gotCart(data))
+      } else {
+        localStorage.setItem(product.name, JSON.stringify(product))
+        dispatch(addedToCart(JSON.parse(localStorage.getItem(product.name))))
+      }
     } catch (error) {
       console.error(error)
     }
@@ -56,8 +61,23 @@ export const addToCart = product => {
         const {data} = await axios.post('/api/orders', product)
         dispatch(addedToCart(data))
       } else {
-        localStorage.setItem(product.name, JSON.stringify(product))
-        dispatch(addedToCart(JSON.parse(localStorage.getItem(product.name))))
+        // let cart = JSON.parse(localStorage.getItem('cart'))
+        // let productAlreadyInCart = false
+        // for (let i = 0; i < cart.length; i++) {
+        //   if (cart[i].id === product.id) {
+        //     cart[i].cartQuantity = product.cartQuantity
+        //     localStorage.setItem('cart', JSON.stringify(cart))
+        //     productAlreadyInCart = true
+        //     break
+        //   }
+        // }
+        // if (!productAlreadyInCart) {
+        //   cart[product.name]
+        //   dispatch(addedToCart(JSON.parse(localStorage.getItem(product.name))))
+        // } else {
+        // }
+        // localStorage.setItem(cart[product.name], JSON.stringify(product))
+        // dispatch(addedToCart(JSON.parse(localStorage.getItem(product.name))))
       }
     } catch (error) {
       console.error(error)
