@@ -72,9 +72,9 @@ router.put('/', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    await Order.destroy({
+    await ProductOrder.destroy({
       where: {
-        id: req.params.id
+        productId: req.params.id
       }
     })
     res.sendStatus(204)
