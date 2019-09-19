@@ -6,17 +6,20 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const CONTINUE_AS_GUEST = 'CONTINUE_AS_GUEST'
 
 /**
  * INITIAL STATE
  */
 const defaultUser = {}
+const guestUser = {guest: true}
 
 /**
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const continueAsGuest = () => ({type: CONTINUE_AS_GUEST, guestUser})
 
 /**
  * THUNK CREATORS
@@ -24,7 +27,23 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    dispatch(getUser(res.data || defaultUser))
+
+    if (res.data === 'guest') {
+      dispatch(continueAsGuest(guestUser))
+    } else {
+      dispatch(getUser(res.data || defaultUser))
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const guest = () => async dispatch => {
+  try {
+    await axios.get('/auth/guest')
+    // console.log('------------entered')
+    dispatch(continueAsGuest())
+    // history.push('/home')
   } catch (err) {
     console.error(err)
   }
@@ -65,6 +84,8 @@ export default function(state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case CONTINUE_AS_GUEST:
+      return action.guestUser
     default:
       return state
   }
