@@ -50,6 +50,17 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+//create a new guest cart
+router.post('/guest', (req, res, next) => {
+  req.session.passport.cart = []
+
+  let productInfo = {
+    ...req.body
+  }
+
+  res.json(productInfo)
+})
+
 router.put('/', async (req, res, next) => {
   try {
     await ProductOrder.update(
