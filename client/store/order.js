@@ -4,6 +4,7 @@ import axios from 'axios'
 const GOT_CART_FROM_SERVER = 'GOT_CART_FROM_SERVER'
 const ADDED_TO_CART = 'ADDED_TO_CART'
 const UPDATED_CART_QUANTITY = 'UPDATED_CART_QUANTITY'
+const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
 
 // ACTION CREATORS
 const gotCart = cart => ({
@@ -22,6 +23,14 @@ const updatedCartQuantity = product => {
   return {
     type: UPDATED_CART_QUANTITY,
     product
+  }
+}
+
+/// ACTION CREATOR FOR REMOVING CART ITEM
+const removeFromCart = id => {
+  return {
+    type: REMOVE_CART_ITEM,
+    id
   }
 }
 
@@ -61,6 +70,18 @@ export const updateCartQuantity = product => {
   }
 }
 
+// THUNK FOR REMOVING CART ITEM
+export const removingCartItem = id => {
+  return async dispatch => {
+    try {
+      await axios.delete(`/api/orders/${id}`) // NEED TO WRITE A ROUTER FOR THIS
+      dispatch(removeFromCart(id))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
 // INITIAL STATE
 const initialState = {
   history: [],
@@ -94,6 +115,14 @@ const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: newCartProducts
+      }
+    // REMOVING CART ITEM REDUCER
+    case REMOVE_CART_ITEM:
+      return {
+        ...state,
+        cart: state.cart.filter(item => {
+          return item.id !== action.id
+        })
       }
 
     default:

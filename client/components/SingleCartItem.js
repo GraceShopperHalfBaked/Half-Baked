@@ -1,16 +1,28 @@
 import React from 'react'
 
-const singleCartItem = props => {
+const SingleCartItem = props => {
+  const {cartItem} = props
+  const {removingCartItem} = props
   return (
     <div>
-      <img src={props.cartItem.imageUrl} />
-      <h3>{props.cartItem.name}</h3>
-      Quantity: {props.cartItem.productOrder.quantity}
-      Price: {props.cartItem.currentPrice}
+      <img src={cartItem.imageUrl} />
+      <h3>{cartItem.name}</h3>
+      <p>
+        Quantity:{' '}
+        {cartItem.productOrder
+          ? cartItem.productOrder.quantity
+          : cartItem.cartQuantity}
+      </p>
+      <p>Price: {cartItem.currentPrice}</p>
       Total Price:{' '}
-      {props.cartItem.currentPrice * props.cartItem.productOrder.quantity}
+      {cartItem.productOrder
+        ? cartItem.currentPrice * cartItem.productOrder.quantity
+        : cartItem.currentPrice * cartItem * cartItem.cartQuantity}
+      <button type="submit" onClick={() => removingCartItem(cartItem.id)}>
+        Remove Item
+      </button>
     </div>
   )
 }
 
-export default singleCartItem
+export default SingleCartItem

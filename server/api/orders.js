@@ -43,7 +43,7 @@ router.post('/', async (req, res, next) => {
       ...req.body,
       orderId: order[0].id
     }
-
+    console.log(productInfo)
     res.json(productInfo)
   } catch (err) {
     next(err)
@@ -65,6 +65,19 @@ router.put('/', async (req, res, next) => {
     )
 
     res.sendStatus(201)
+  } catch (error) {
+    console.error(error)
+  }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    await Order.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    res.sendStatus(204)
   } catch (error) {
     console.error(error)
   }
