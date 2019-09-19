@@ -18,7 +18,12 @@ const SingleCartItem = props => {
       {cartItem.productOrder
         ? cartItem.currentPrice * cartItem.productOrder.quantity
         : cartItem.currentPrice * cartItem * cartItem.cartQuantity}
-      <button type="submit" onClick={() => removingCartItem(cartItem.id)}>
+      <button
+        type="submit"
+        onClick={() =>
+          removingCartItem(cartItem.productOrder.orderId, cartItem.id)
+        }
+      >
         Remove Item
       </button>
     </div>

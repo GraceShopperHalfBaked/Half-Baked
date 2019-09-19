@@ -27,10 +27,11 @@ const updatedCartQuantity = product => {
 }
 
 /// ACTION CREATOR FOR REMOVING CART ITEM
-const removeFromCart = id => {
+const removeFromCart = (orderId, prodId) => {
   return {
     type: REMOVE_CART_ITEM,
-    id
+    orderId,
+    prodId
   }
 }
 
@@ -71,11 +72,11 @@ export const updateCartQuantity = product => {
 }
 
 // THUNK FOR REMOVING CART ITEM
-export const removingCartItem = id => {
+export const removingCartItem = (orderId, prodId) => {
   return async dispatch => {
     try {
-      await axios.delete(`/api/orders/${id}`) // NEED TO WRITE A ROUTER FOR THIS
-      dispatch(removeFromCart(id))
+      await axios.delete(`/api/orders/${orderId}/${prodId}`) // NEED TO WRITE A ROUTER FOR THIS
+      dispatch(removeFromCart(orderId, prodId))
     } catch (error) {
       console.error(error)
     }
@@ -121,7 +122,7 @@ const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: state.cart.filter(item => {
-          return item.id !== action.id
+          return item.id !== action.orderId && item.id !== action.prodId
         })
       }
 

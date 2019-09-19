@@ -70,11 +70,12 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:orderId/:productId', async (req, res, next) => {
   try {
     await ProductOrder.destroy({
       where: {
-        productId: req.params.id
+        productId: req.params.productId,
+        orderId: req.params.orderId
       }
     })
     res.sendStatus(204)
