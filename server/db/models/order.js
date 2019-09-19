@@ -8,7 +8,7 @@ const Order = db.define('order', {
   },
   // beware floating ---------revisit
   totalOrderPrice: {
-    type: Sequelize.FLOAT
+    type: Sequelize.DECIMAL(12, 2)
   }
 })
 

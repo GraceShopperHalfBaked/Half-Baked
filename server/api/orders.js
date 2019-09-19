@@ -43,7 +43,7 @@ router.post('/', async (req, res, next) => {
       ...req.body,
       orderId: order[0].id
     }
-
+    console.log(productInfo)
     res.json(productInfo)
   } catch (err) {
     next(err)

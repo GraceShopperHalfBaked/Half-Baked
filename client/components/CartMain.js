@@ -12,7 +12,6 @@ class DisconnectedCartMain extends React.Component {
     this.props.fetchCart(this.props.user.id)
   }
   render() {
-    console.log('🤗🤗🤗🤗🤗🤗', this.props)
     const {allCartItems} = this.props
     // const {removingCartItem} = this.props
     return (
