@@ -6,6 +6,7 @@ import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 import SingleProductDetail from './components/SingleProductDetail'
 import CartMain from './components/CartMain'
+import userHome from './components/user-home'
 
 /**
  * COMPONENT
@@ -16,8 +17,6 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
-
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -26,19 +25,14 @@ class Routes extends Component {
         <Route path="/products/:productId" component={SingleProductDetail} /> */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-            <Route
-              path="/products/:productId"
-              component={SingleProductDetail}
-            />
-            <Route path="/cart" component={CartMain} />
-          </Switch>
-        )}
+
+        {/* Routes placed here are only available after logging in */}
+        <Route path="/home" component={UserHome} />
+        <Route path="/products/:productId" component={SingleProductDetail} />
+        <Route path="/cart" component={CartMain} />
+
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        <Route component={UserHome} />
       </Switch>
     )
   }

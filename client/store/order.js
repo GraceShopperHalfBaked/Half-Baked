@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+//define localstorage
+const localStorage = window.localStorage
+
 // ACTION TYPES
 const GOT_CART_FROM_SERVER = 'GOT_CART_FROM_SERVER'
 const ADDED_TO_CART = 'ADDED_TO_CART'
@@ -49,8 +52,13 @@ export const fetchCart = userId => {
 export const addToCart = product => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/orders', product)
-      dispatch(addedToCart(data))
+      if (product.userId) {
+        const {data} = await axios.post('/api/orders', product)
+        dispatch(addedToCart(data))
+      } else {
+        localStorage.setItem(product.name, JSON.stringify(product))
+        dispatch(addedToCart(JSON.parse(localStorage.getItem(product.name))))
+      }
     } catch (error) {
       console.error(error)
     }
