@@ -26,6 +26,7 @@ const SingleCartItem = props => {
       >
         Remove Item
       </button>
+      <h1>fds</h1>
     </div>
   )
 }

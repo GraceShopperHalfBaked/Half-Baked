@@ -11,7 +11,9 @@ import {fetchCart} from '../store/order'
 class UserHome extends React.Component {
   componentDidMount() {
     this.props.getProducts()
-    this.props.fetchCart(this.props.user.id)
+    if (this.props.user) {
+      this.props.fetchCart(this.props.user.id)
+    }
   }
 
   render() {
