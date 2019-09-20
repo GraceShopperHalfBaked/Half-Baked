@@ -36,6 +36,7 @@ class Routes extends Component {
               component={SingleProductDetail}
             />
             <Route path="/cart" component={CartMain} />
+            <Route component={UserHome} />
           </Switch>
         )}
 

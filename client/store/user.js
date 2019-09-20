@@ -24,7 +24,11 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    dispatch(getUser({...res.data, guest: false} || {guest: true}))
+    if (res.data) {
+      dispatch(getUser({...res.data, guest: false}))
+    } else {
+      dispatch(getUser({guest: true}))
+    }
   } catch (err) {
     console.error(err)
   }
@@ -47,8 +51,10 @@ export const auth = (email, password, method) => async dispatch => {
 }
 
 export const logout = () => async dispatch => {
+  console.log('323444-------------------')
   try {
     await axios.post('/auth/logout')
+    window.localStorage.clear()
     dispatch(removeUser())
     history.push('/login')
   } catch (err) {
