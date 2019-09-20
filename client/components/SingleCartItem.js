@@ -7,22 +7,25 @@ const SingleCartItem = props => {
   return (
     <div id="sing-cart-item">
       <div>
-        <img src={cartItem.imageUrl} className="prod-img" />
+        <img src={cartItem.imageUrl} className="prod-img-cart" />
       </div>
 
       <div>
         <h3>{cartItem.name}</h3>
-        <p>
+        <p className="cart-deets">
           Quantity:{' '}
           {cartItem.productOrder
             ? cartItem.productOrder.quantity
             : cartItem.cartQuantity}
         </p>
-        <p>Price: {cartItem.currentPrice}</p>
-        Total Price:{' '}
-        {cartItem.productOrder
-          ? cartItem.currentPrice * cartItem.productOrder.quantity
-          : cartItem.currentPrice * cartItem * cartItem.cartQuantity}
+        <p className="cart-deets">Price: {cartItem.currentPrice}</p>
+        <p>
+          Total Price:{' '}
+          {cartItem.productOrder
+            ? cartItem.currentPrice * cartItem.productOrder.quantity
+            : cartItem.currentPrice * cartItem * cartItem.cartQuantity}
+        </p>
+
         <p>
           <button
             type="submit"

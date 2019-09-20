@@ -20,21 +20,31 @@ const CartSummary = props => {
 
   return (
     <div id="sidebar">
-      <p>
-        <strong>Subtotal:</strong> ${totalOrderPrice}
-      </p>
-      <hr id="hr-cart" />
+      <div>
+        <p>
+          <strong>Subtotal:</strong> ${totalOrderPrice}
+        </p>
+      </div>
+
+      <div>
+        <hr id="hr-cart" />
+      </div>
+      <div />
       <p>Estimated Shipping: FREE</p>
       <p>Estimated Tax: ${totalOrderTax}</p>
-      <p>
+
+      <div>
         <hr id="hr-cart" />
+      </div>
+      <p>
         <strong>Estimated Total: ${totalOrderPriceWithTax}</strong>
       </p>
-
-      <button type="button" onClick={() => props.processCheckout()}>
-        CHECKOUT HERE!
-      </button>
-      {/* <button>STRIPE CHECKOUT HERE!</button> */}
+      <p>
+        <button type="button" onClick={() => props.processCheckout()}>
+          CHECKOUT HERE!
+        </button>
+        {/* <button>STRIPE CHECKOUT HERE!</button> */}
+      </p>
     </div>
   )
 }

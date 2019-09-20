@@ -67,7 +67,7 @@ const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
         </div>
       )}
     </nav>
-    <hr />
+    <hr id="nav-hr" />
   </div>
 )
 
