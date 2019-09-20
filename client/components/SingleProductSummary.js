@@ -1,8 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+
 import {addToCart, updateCartQuantity} from '../store/order'
 import AddToCart from './AddToCart'
-import {connect} from 'react-redux'
 
 class DisconnectedSingleProductSummary extends React.Component {
   render() {

@@ -6,6 +6,7 @@ import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 import SingleProductDetail from './components/SingleProductDetail'
 import CartMain from './components/CartMain'
+import Checkout from './components/Checkout'
 
 /**
  * COMPONENT
@@ -35,6 +36,7 @@ class Routes extends Component {
               component={SingleProductDetail}
             />
             <Route path="/cart" component={CartMain} />
+            <Route path="/checkout" component={Checkout} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

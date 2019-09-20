@@ -70,11 +70,26 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.put('/:orderId', async (req, res, next) => {
   try {
-    await Order.destroy({
+    const order = await Order.findByPk(req.params.orderId)
+
+    if (order)
+      await order.update({
+        cartStatus: 'purchased'
+      })
+    res.sendStatus(204)
+  } catch (error) {
+    console.error(error)
+  }
+})
+
+router.delete('/:orderId/:productId', async (req, res, next) => {
+  try {
+    await ProductOrder.destroy({
       where: {
-        id: req.params.id
+        productId: req.params.productId,
+        orderId: req.params.orderId
       }
     })
     res.sendStatus(204)

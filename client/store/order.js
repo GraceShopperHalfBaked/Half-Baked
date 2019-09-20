@@ -5,6 +5,7 @@ const GOT_CART_FROM_SERVER = 'GOT_CART_FROM_SERVER'
 const ADDED_TO_CART = 'ADDED_TO_CART'
 const UPDATED_CART_QUANTITY = 'UPDATED_CART_QUANTITY'
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
+const CHECKOUT = 'CHECKOUT'
 
 // ACTION CREATORS
 const gotCart = cart => ({
@@ -27,12 +28,18 @@ const updatedCartQuantity = product => {
 }
 
 /// ACTION CREATOR FOR REMOVING CART ITEM
-const removeFromCart = id => {
+const removeFromCart = (orderId, prodId) => {
   return {
     type: REMOVE_CART_ITEM,
-    id
+    orderId,
+    prodId
   }
 }
+
+// ACTION CREATOR FOR CHECKOUT
+const checkout = () => ({
+  type: CHECKOUT
+})
 
 // THUNK CREATOR for CART
 export const fetchCart = userId => {
@@ -71,11 +78,23 @@ export const updateCartQuantity = product => {
 }
 
 // THUNK FOR REMOVING CART ITEM
-export const removingCartItem = id => {
+export const removingCartItem = (orderId, prodId) => {
   return async dispatch => {
     try {
-      await axios.delete(`/api/orders/${id}`) // NEED TO WRITE A ROUTER FOR THIS
-      dispatch(removeFromCart(id))
+      await axios.delete(`/api/orders/${orderId}/${prodId}`) // NEED TO WRITE A ROUTER FOR THIS
+      dispatch(removeFromCart(orderId, prodId))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+// THUNK FOR CHECKOUT
+export const processCheckout = orderId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/orders/${orderId}`)
+      dispatch(checkout(data))
     } catch (error) {
       console.error(error)
     }
@@ -116,13 +135,19 @@ const orderReducer = (state = initialState, action) => {
         ...state,
         cart: newCartProducts
       }
-    // REMOVING CART ITEM REDUCER
+
     case REMOVE_CART_ITEM:
       return {
         ...state,
         cart: state.cart.filter(item => {
-          return item.id !== action.id
+          return item.id !== action.orderId && item.id !== action.prodId
         })
+      }
+
+    case CHECKOUT:
+      return {
+        ...state,
+        cart: []
       }
 
     default:
