@@ -4,6 +4,9 @@ import AddToCart from './AddToCart'
 const SingleCartItem = props => {
   const {cartItem} = props
   const {removingCartItem} = props
+
+  console.log('CART QTY: ', cartItem.productOrder)
+
   return (
     <div id="sing-cart-item">
       <div>

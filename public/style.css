@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap');
+
+a#cart-icon-cont {
+  position: relative;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 a {
@@ -33,6 +39,14 @@ input {
   );
 }
 
+#cart-qty {
+  position: absolute;
+  top: -9px;
+  background-color: white;
+  border: 2px solid #ec292d;
+  border-radius: 50%;
+  width: 18px;
+}
 /* Nav component css */
 /* nav a {
   display: inline-block;
