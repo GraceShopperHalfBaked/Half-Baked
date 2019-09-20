@@ -45,8 +45,9 @@ export const fetchCart = userId => {
         const {data} = await axios.get(`/api/orders/${userId}`)
         dispatch(gotCart(data))
       } else {
-        localStorage.setItem(product.name, JSON.stringify(product))
-        dispatch(addedToCart(JSON.parse(localStorage.getItem(product.name))))
+        console.log('doing this now')
+        let cart = JSON.parse(localStorage.getItem('cart'))
+        dispatch(gotCart(cart))
       }
     } catch (error) {
       console.error(error)
@@ -61,6 +62,20 @@ export const addToCart = product => {
         const {data} = await axios.post('/api/orders', product)
         dispatch(addedToCart(data))
       } else {
+        // console.log('local', (localStorage.getItem('cart')))
+        if (!localStorage.getItem('cart')) {
+          console.log('here')
+          let cart = [product]
+          localStorage.setItem('cart', JSON.stringify(cart))
+        } else {
+          console.log('orhere')
+          let cart = JSON.parse(localStorage.getItem('cart'))
+          cart.push(product)
+          localStorage.setItem('cart', JSON.stringify(cart))
+        }
+
+        dispatch(addedToCart(product))
+
         // let cart = JSON.parse(localStorage.getItem('cart'))
         // let productAlreadyInCart = false
         // for (let i = 0; i < cart.length; i++) {
@@ -120,9 +135,13 @@ const initialState = {
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_CART_FROM_SERVER:
-      return {
-        ...state,
-        cart: [...action.cart]
+      if (action.cart === null) {
+        return state
+      } else {
+        return {
+          ...state,
+          cart: [...action.cart]
+        }
       }
 
     case ADDED_TO_CART:
