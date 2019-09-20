@@ -21,6 +21,7 @@ const SingleCartItem = props => {
       <button type="submit" onClick={() => removingCartItem(cartItem.id)}>
         Remove Item
       </button>
+      <h1>fds</h1>
     </div>
   )
 }
