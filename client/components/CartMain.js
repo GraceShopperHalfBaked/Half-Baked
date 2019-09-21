@@ -29,7 +29,7 @@ class DisconnectedCartMain extends React.Component {
             )
           })}
         </div>
-
+        )
         <div>
           <CartSummary
             allCartItems={allCartItems}

@@ -140,7 +140,7 @@ const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: state.cart.filter(item => {
-          return item.id !== action.orderId && item.id !== action.prodId
+          return item.id !== action.prodId
         })
       }
 

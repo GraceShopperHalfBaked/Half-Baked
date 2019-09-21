@@ -72,12 +72,28 @@ router.put('/', async (req, res, next) => {
 
 router.put('/:orderId', async (req, res, next) => {
   try {
-    const order = await Order.findByPk(req.params.orderId)
-
-    if (order)
-      await order.update({
+    await Order.update(
+      {
         cartStatus: 'purchased'
-      })
+      },
+      {
+        where: {
+          id: req.params.orderId
+        }
+      }
+    )
+
+    await Product.update(
+      {
+        quantity: quantity - req.body.cartQuantity
+      },
+      {
+        where: {
+          orderId: req.params.orderId
+        }
+      }
+    )
+
     res.sendStatus(204)
   } catch (error) {
     console.error(error)

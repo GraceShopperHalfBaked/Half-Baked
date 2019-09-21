@@ -16,25 +16,32 @@ const CartSummary = props => {
       : allCartItems[i].cartQuantity * allCartItems[i].currentPrice
     // console.log('here after addding totalorderprice: ', totalOrderPrice)
   }
-  const totalOrderTax = (totalOrderPrice * 0.08).toFixed(2)
-  const totalOrderPriceWithTax = Number(totalOrderPrice) + Number(totalOrderTax)
-
+  const subTotal = (totalOrderPrice / 100).toFixed(2)
+  const tax = (totalOrderPrice * 0.08 / 100).toFixed(2)
+  const total = (Number(subTotal) + Number(tax)).toFixed(2)
+  // console.log(allCartItems)
   return (
     <div id="sidebar">
       <p>
-        <strong>Subtotal:</strong> ${totalOrderPrice}
+        <strong>Subtotal:</strong> ${subTotal}
       </p>
       <hr id="hr-cart" />
       <p>Estimated Shipping: FREE</p>
-      <p>Estimated Tax: ${totalOrderTax}</p>
+      <p>Estimated Tax: ${tax}</p>
       <p>
         <hr id="hr-cart" />
-        <strong>Estimated Total: ${totalOrderPriceWithTax}</strong>
+        <strong>Estimated Total: ${total}</strong>
       </p>
       <Link to="/checkout">
         <button
           type="button"
-          onClick={() => processCheckout(allCartItems[0].productOrder.orderId)}
+          onClick={() =>
+            processCheckout(
+              allCartItems[0].productOrder
+                ? allCartItems[0].productOrder.orderId
+                : allCartItems[0].orderId
+            )
+          }
         >
           CHECKOUT HERE!
         </button>
