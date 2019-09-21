@@ -82,14 +82,22 @@ router.put('/:orderId', async (req, res, next) => {
         }
       }
     )
+    const productOrder = await ProductOrder.findOne({
+      where: {
+        orderId: req.params.orderId
+      }
+    })
+    console.log('this is the req.body: ', req.body)
 
     await Product.update(
       {
-        quantity: quantity - req.body.cartQuantity
+        quantity: 69
+        //--------revisit-----------------
+        // need to set new product quantity
       },
       {
         where: {
-          orderId: req.params.orderId
+          id: productOrder.productId
         }
       }
     )
