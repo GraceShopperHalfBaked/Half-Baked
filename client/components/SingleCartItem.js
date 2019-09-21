@@ -10,7 +10,7 @@ const SingleCartItem = props => {
 
   if (cartItem.cartQuantity > 0) {
     cartItem.productOrder.quantity =
-      cartItem.cartQuantity + cartItem.product.quanity
+      Number(cartItem.cartQuantity) + Number(cartItem.productOrder.quantity)
   }
 
   return (
