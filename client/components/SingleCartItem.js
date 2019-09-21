@@ -6,6 +6,12 @@ const SingleCartItem = props => {
   const {removingCartItem} = props
 
   console.log('CART QTY: ', cartItem.productOrder)
+  console.log('CART qty: ', cartItem.cartQuantity)
+
+  if (cartItem.cartQuantity > 0) {
+    cartItem.productOrder.quantity =
+      cartItem.cartQuantity + cartItem.product.quanity
+  }
 
   return (
     <div id="sing-cart-item">
@@ -16,10 +22,10 @@ const SingleCartItem = props => {
       <div>
         <h3>{cartItem.name}</h3>
         <p className="cart-deets">
-          Quantity:{' '}
-          {cartItem.productOrder
+          Quantity: {cartItem.productOrder.quantity}
+          {/* {cartItem.productOrder
             ? cartItem.productOrder.quantity
-            : cartItem.cartQuantity}
+            : cartItem.cartQuantity} */}
         </p>
         <p className="cart-deets">Price: {cartItem.currentPrice}</p>
         <p>

@@ -127,6 +127,7 @@ const orderReducer = (state = initialState, action) => {
         if (product.id === action.product.id) {
           product.cartQuantity = action.product.cartQuantity
         }
+
         return product
       })
 

@@ -14,7 +14,7 @@ class DisconnectedCartMain extends React.Component {
   render() {
     const {allCartItems} = this.props
     // const {removingCartItem} = this.props
-    console.log('DUDE: ', this.props)
+    console.log('DUDE: ', allCartItems)
     return (
       <div className="cart-main">
         <div>
