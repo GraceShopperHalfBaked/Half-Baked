@@ -19,16 +19,18 @@ class DisconnectedAddToCart extends React.Component {
   }
 
   handleSubmit() {
+    let orderId = null
+    if (this.props.user.id && this.props.cart[0]) {
+      orderId = this.props.cart[0].productOrder.orderId
+    }
     const productToAdd = {
       ...this.props.product,
       userId: this.props.user.id,
-      orderId: this.props.cart[0]
-        ? this.props.cart[0].orderId || this.props.cart[0].productOrder.orderId
-        : null,
+      orderId,
       cartQuantity: this.state.cartQuantity
     }
 
-    if (this.props.cart.length > 0) {
+    if (this.props.cart.length > 0 && this.props.user.id) {
       //----------------revisit------------------------------
       for (let index = 0; index < this.props.cart.length; index++) {
         if (this.props.cart[index].id === this.props.product.id) {
