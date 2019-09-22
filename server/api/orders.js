@@ -71,11 +71,50 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.put('/:orderId', async (req, res, next) => {
   try {
-    await Order.destroy({
+    await Order.update(
+      {
+        cartStatus: 'purchased'
+      },
+      {
+        where: {
+          id: req.params.orderId
+        }
+      }
+    )
+    const productOrder = await ProductOrder.findOne({
       where: {
-        id: req.params.id
+        orderId: req.params.orderId
+      }
+    })
+    console.log('this is the req.body: ', req.body)
+
+    await Product.update(
+      {
+        quantity: 69
+        //--------revisit-----------------
+        // need to set new product quantity
+      },
+      {
+        where: {
+          id: productOrder.productId
+        }
+      }
+    )
+
+    res.sendStatus(204)
+  } catch (error) {
+    console.error(error)
+  }
+})
+
+router.delete('/:orderId/:productId', async (req, res, next) => {
+  try {
+    await ProductOrder.destroy({
+      where: {
+        productId: req.params.productId,
+        orderId: req.params.orderId
       }
     })
     res.sendStatus(204)

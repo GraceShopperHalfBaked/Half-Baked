@@ -1,27 +1,39 @@
 import React from 'react'
+import AddToCart from './AddToCart'
 
 const SingleCartItem = props => {
-  const {cartItem} = props
-  const {removingCartItem} = props
+  const {cartItem, removingCartItem} = props
+  const singlePrice = (cartItem.currentPrice / 100).toFixed(2)
+  const quantity = cartItem.cartQuantity
+  // console.log(cartItem)
   return (
-    <div>
-      <img src={cartItem.imageUrl} />
-      <h3>{cartItem.name}</h3>
-      <p>
-        Quantity:{' '}
-        {cartItem.productOrder
-          ? cartItem.productOrder.quantity
-          : cartItem.cartQuantity}
-      </p>
-      <p>Price: {cartItem.currentPrice}</p>
-      Total Price:{' '}
-      {cartItem.productOrder
-        ? cartItem.currentPrice * cartItem.productOrder.quantity
-        : cartItem.currentPrice * cartItem * cartItem.cartQuantity}
-      <button type="submit" onClick={() => removingCartItem(cartItem.id)}>
-        Remove Item
-      </button>
-      <h1>fds</h1>
+    <div id="sing-cart-item">
+      <div>
+        <img src={cartItem.imageUrl} className="prod-img" />
+      </div>
+
+      <div>
+        <h3>{cartItem.name}</h3>
+        <p>
+          Quantity:{' '}
+          {cartItem.productOrder ? cartItem.productOrder.quantity : quantity}
+        </p>
+        <p>Price: ${singlePrice}</p>
+        Total Price: ${cartItem.productOrder
+          ? (singlePrice * cartItem.productOrder.quantity).toFixed(2)
+          : (singlePrice * quantity).toFixed(2)}
+        <p>
+          <button
+            type="submit"
+            onClick={() =>
+              removingCartItem(cartItem.productOrder.orderId, cartItem.id)
+            }
+          >
+            Remove Item
+          </button>
+        </p>
+        <AddToCart product={cartItem} />
+      </div>
     </div>
   )
 }

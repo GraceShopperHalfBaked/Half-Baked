@@ -20,7 +20,7 @@ class DisconnectedSingleProductDetail extends React.Component {
         </div>
         <div id="single-prod-info">
           <h3>{selectedProduct.name}</h3>
-          <p>Price: {selectedProduct.currentPrice}</p>
+          <p>Price: ${(selectedProduct.currentPrice / 100).toFixed(2)}</p>
           {selectedProduct.description}
           <AddToCart product={selectedProduct} />
         </div>

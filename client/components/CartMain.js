@@ -4,7 +4,7 @@ import {fetchProducts} from '../store/product'
 
 import SingleCartItem from './SingleCartItem'
 import CartSummary from './CartSummary'
-import {removingCartItem, fetchCart} from '../store/order'
+import {removingCartItem, fetchCart, processCheckout} from '../store/order'
 
 class DisconnectedCartMain extends React.Component {
   componentDidMount() {
@@ -12,21 +12,30 @@ class DisconnectedCartMain extends React.Component {
     this.props.fetchCart(this.props.user.id)
   }
   render() {
-    const {allCartItems} = this.props
-    // const {removingCartItem} = this.props
+    const {allCartItems, removingCartItem, processCheckout} = this.props
+
     return (
-      <div>
-        {allCartItems.map(cartItem => {
-          return (
-            <div key={cartItem.id}>
-              <SingleCartItem
-                cartItem={cartItem}
-                removingCartItem={this.props.removingCartItem}
-              />
-            </div>
-          )
-        })}
-        <CartSummary allCartItems={allCartItems} />
+      <div className="cart-main">
+        <div>
+          {allCartItems.map(cartItem => {
+            return (
+              <div key={cartItem.id}>
+                <SingleCartItem
+                  cartItem={cartItem}
+                  removingCartItem={removingCartItem}
+                />
+                <hr id="hr-cart" />
+              </div>
+            )
+          })}
+        </div>
+        )
+        <div>
+          <CartSummary
+            allCartItems={allCartItems}
+            processCheckout={processCheckout}
+          />
+        </div>
       </div>
     )
   }
@@ -42,9 +51,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    processCheckout: cart => dispatch(processCheckout(cart)),
     getProducts: () => dispatch(fetchProducts()),
     fetchCart: userId => dispatch(fetchCart(userId)),
-    removingCartItem: productId => dispatch(removingCartItem(productId))
+    removingCartItem: (orderId, productId) =>
+      dispatch(removingCartItem(orderId, productId))
   }
 }
 
