@@ -11,7 +11,7 @@ class DisconnectedSingleProductSummary extends React.Component {
       <div>
         <Link to={`/products/${this.props.product.id}`}>
           <img src={this.props.product.imageUrl} className="prod-img" />
-          <p>{this.props.product.name}</p>
+          <p id="bold-this-name">{this.props.product.name}</p>
         </Link>
         <div>Price: ${(this.props.product.currentPrice / 100).toFixed(2)}</div>
         <AddToCart product={this.props.product} />

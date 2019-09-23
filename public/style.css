@@ -108,6 +108,9 @@ a#inner-links {
   display: flex;
   flex-direction: column;
 }
+#bold-this-name {
+  font-weight: bold;
+}
 
 /* Single Product Detail comp */
 #single-detail {
