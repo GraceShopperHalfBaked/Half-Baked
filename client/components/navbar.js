@@ -66,7 +66,7 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
           <Link to="/signup" className="navLink">
             Sign Up
           </Link>
-          <Link to="/cart">
+          <Link to="/cart" id="cart-icon-cont">
             <img
               src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
               id="checkout-icon"
