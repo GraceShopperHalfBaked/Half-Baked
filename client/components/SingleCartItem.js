@@ -6,7 +6,7 @@ const SingleCartItem = props => {
   const singlePrice = (cartItem.currentPrice / 100).toFixed(2)
   const quantity = cartItem.cartQuantity
 
-  //finalQuant is the Quantity selected on line 23
+  //finalQuant is the Quantity selected on line 22
   const finalQuant = cartItem.productOrder
     ? quantity || cartItem.productOrder.quantity
     : quantity
@@ -19,12 +19,7 @@ const SingleCartItem = props => {
 
       <div>
         <h3 id="bold-this-name">{cartItem.name}</h3>
-        <p className="cart-deets">
-          Quantity:{' '}
-          {cartItem.productOrder
-            ? quantity || cartItem.productOrder.quantity
-            : quantity}
-        </p>
+        <p className="cart-deets">Quantity: {finalQuant}</p>
         <p className="cart-deets">Price: ${singlePrice}</p>
         {/* Total Price: ${cartItem.productOrder
           ? (singlePrice * cartItem.productOrder.quantity).toFixed(2)
