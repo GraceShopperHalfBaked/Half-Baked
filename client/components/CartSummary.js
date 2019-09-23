@@ -40,7 +40,6 @@ const CartSummary = props => {
 
       {!userId ? (
         <div>
-          <Signup />
           <Link to="/checkout">HERE</Link>
         </div>
       ) : (
