@@ -15,6 +15,9 @@ class DisconnectedCartMain extends React.Component {
     const {allCartItems, removingCartItem, processCheckout} = this.props
 
     return (
+
+              <div>
+        <div id="shopping">Shopping Cart</div>
       <div className="cart-main">
         <div>
           {allCartItems.map(cartItem => {
@@ -29,12 +32,13 @@ class DisconnectedCartMain extends React.Component {
             )
           })}
         </div>
-        )
+        
         <div>
           <CartSummary
             allCartItems={allCartItems}
             processCheckout={processCheckout}
           />
+
         </div>
       </div>
     )
