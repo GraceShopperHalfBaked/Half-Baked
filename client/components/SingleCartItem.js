@@ -13,7 +13,7 @@ const SingleCartItem = props => {
       </div>
 
       <div>
-        <h3>{cartItem.name}</h3>
+        <h3 id="bold-this-name">{cartItem.name}</h3>
         <p className="cart-deets">
           Quantity:{' '}
           {cartItem.productOrder
