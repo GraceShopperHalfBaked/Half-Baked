@@ -111,6 +111,10 @@ a#inner-links {
 #bold-this-name {
   font-weight: bold;
 }
+h3#bold-this-name {
+  font-weight: bold;
+  color: #de3f40;
+}
 
 /* Single Product Detail comp */
 #single-detail {
