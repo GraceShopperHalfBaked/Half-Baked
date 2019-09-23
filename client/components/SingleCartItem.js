@@ -9,16 +9,18 @@ const SingleCartItem = props => {
   return (
     <div id="sing-cart-item">
       <div>
-        <img src={cartItem.imageUrl} className="prod-img" />
+        <img src={cartItem.imageUrl} className="prod-img-cart" />
       </div>
 
       <div>
         <h3>{cartItem.name}</h3>
-        <p>
+        <p className="cart-deets">
           Quantity:{' '}
-          {cartItem.productOrder ? cartItem.productOrder.quantity : quantity}
+          {cartItem.productOrder
+            ? quantity || cartItem.productOrder.quantity
+            : quantity}
         </p>
-        <p>Price: ${singlePrice}</p>
+        <p className="cart-deets">Price: ${singlePrice}</p>
         Total Price: ${cartItem.productOrder
           ? (singlePrice * cartItem.productOrder.quantity).toFixed(2)
           : (singlePrice * quantity).toFixed(2)}

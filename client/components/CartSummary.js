@@ -22,16 +22,21 @@ const CartSummary = props => {
   // console.log(allCartItems)
   return (
     <div id="sidebar">
-      <p>
-        <strong>Subtotal:</strong> ${subTotal}
-      </p>
-      <hr id="hr-cart" />
+      <div>
+        <p>
+          <strong>Subtotal:</strong> ${subTotal}
+        </p>
+      </div>
+      <div>
+        <hr id="hr-cart" />
+      </div>
       <p>Estimated Shipping: FREE</p>
       <p>Estimated Tax: ${tax}</p>
       <p>
         <hr id="hr-cart" />
         <strong>Estimated Total: ${total}</strong>
       </p>
+
       <Link to="/checkout">
         <button
           type="button"

@@ -112,7 +112,6 @@ router.put(
           orderId: req.params.orderId
         }
       })
-      console.log('this is the req.body: ', req.body)
 
       await Product.update(
         {

@@ -12,6 +12,7 @@ const CHECKOUT = 'CHECKOUT'
 const CLEARED_CART = 'CLEARED_CART'
 
 // ACTION CREATORS
+
 const gotCart = cart => ({
   type: GOT_CART_FROM_SERVER,
   cart
@@ -53,6 +54,17 @@ const checkout = () => ({
 })
 
 // THUNK CREATOR for CART
+export const processCheckout = cart => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('/api/orders', cart)
+      dispatch(checkout(data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
 export const fetchCart = userId => {
   return async dispatch => {
     try {
@@ -160,18 +172,6 @@ export const removingCartItem = (orderId, prodId) => {
   }
 }
 
-// THUNK FOR CHECKOUT
-export const processCheckout = orderId => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.put(`/api/orders/${orderId}`)
-      dispatch(checkout(data))
-    } catch (error) {
-      console.error(error)
-    }
-  }
-}
-
 // INITIAL STATE
 const initialState = {
   history: [],
@@ -209,6 +209,7 @@ const orderReducer = (state = initialState, action) => {
         if (product.id === action.product.id) {
           product.cartQuantity = action.product.cartQuantity
         }
+
         return product
       })
 
@@ -228,6 +229,7 @@ const orderReducer = (state = initialState, action) => {
     case CHECKOUT:
       return {
         ...state,
+
         cart: []
       }
 
