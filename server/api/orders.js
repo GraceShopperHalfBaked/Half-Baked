@@ -89,7 +89,7 @@ router.put(
 // [TO-DO]: rename to `/:orderId/checkout`
 // [TO-DO]: make this route an HTTP POST
 router.put(
-  '/:orderId',
+  '/:orderId/checkout',
   authenticated(),
   validateOwnership({validateCurrentOrder: true}),
   async (req, res, next) => {
