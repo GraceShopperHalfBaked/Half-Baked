@@ -36,6 +36,7 @@ class DisconnectedCartMain extends React.Component {
             <CartSummary
               allCartItems={allCartItems}
               processCheckout={processCheckout}
+              userId={this.props.user.id}
             />
           </div>
         </div>

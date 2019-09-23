@@ -1,11 +1,11 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {Signup} from '../components'
 // import 'fetch cart order stuff here'
 
 const CartSummary = props => {
-  const {allCartItems, processCheckout} = props
+  const {allCartItems, processCheckout, userId} = props
   let totalOrderPrice = 0
-  // console.log('before enter loop totalorderprice: ', totalOrderPrice)
 
   for (let i = 0; i < allCartItems.length; i++) {
     // console.log('here before addding')
@@ -38,21 +38,28 @@ const CartSummary = props => {
         <strong>Estimated Total: ${total}</strong>
       </div>
 
-      <Link to="/checkout">
-        <button
-          type="button"
-          onClick={() =>
-            processCheckout(
-              allCartItems[0].productOrder
-                ? allCartItems[0].productOrder.orderId
-                : allCartItems[0].orderId
-            )
-          }
-        >
-          CHECKOUT HERE!
-        </button>
-        {/* <button>STRIPE CHECKOUT HERE!</button> */}
-      </Link>
+      {!userId ? (
+        <div>
+          <Signup />
+          <Link to="/checkout">HERE</Link>
+        </div>
+      ) : (
+        <Link to="/checkout">
+          <button
+            type="button"
+            onClick={() =>
+              processCheckout(
+                allCartItems[0].productOrder
+                  ? allCartItems[0].productOrder.orderId
+                  : allCartItems[0].orderId
+              )
+            }
+          >
+            CHECKOUT HERE!
+          </button>
+          {/* <button>STRIPE CHECKOUT HERE!</button> */}
+        </Link>
+      )}
     </div>
   )
 }
