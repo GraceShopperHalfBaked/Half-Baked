@@ -113,31 +113,12 @@ router.put(
         }
       })
 
-      // const products = await Product.findAll({
-      //   where: {
-      //     id: productOrders.productId
-      //   }
-      // })
-
       productOrders.forEach(async product => {
         const item = await Product.findByPk(product.productId)
         await item.update({
           quantity: item.quantity - product.quantity
         })
       })
-
-      // await Product.update(
-      //   {
-      //     quantity: products.quantity - productOrders.quantity
-      //     //--------revisit-----------------
-      //     // need to set new product quantity
-      //   },
-      //   {
-      //     where: {
-      //       id: productOrders.productId
-      //     }
-      //   }
-      // )
 
       res.sendStatus(204)
     } catch (error) {
