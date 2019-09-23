@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {BrowserRouter, Route, Link} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, clearCart} from '../store'
 
 import Home from './user-home'
 import CartMain from './CartMain'
 
-const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
+const Navbar = ({handleClick, isLoggedIn, cart}) => (
   <div>
     <nav>
       {isLoggedIn ? (
@@ -29,11 +29,12 @@ const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-          <Link to="/cart">
+          <Link to="/cart" id="cart-icon-cont">
             <img
               src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
               id="checkout-icon"
             />
+
             <div id="cart-qty">
               {cart.length
                 ? cart.reduce((accumulator, item) => {
@@ -45,6 +46,7 @@ const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
                 : ''}
             </div>
           </Link>
+
         </div>
       ) : (
         <div>
@@ -69,6 +71,7 @@ const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
             <img
               src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
               id="checkout-icon"
+
             />
             <div id="cart-qty">
               {console.log('cart', cart)}
@@ -78,11 +81,12 @@ const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
                   }, 0)
                 : ''}
             </div>
+
           </Link>
         </div>
       )}
     </nav>
-    <hr />
+    <hr id="nav-hr" />
   </div>
 )
 
@@ -90,9 +94,16 @@ const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
  * CONTAINER
  */
 const mapState = state => {
+  // let cart = state.order.cart
+  // let cartQuantity = cart[0]
+  //   ? cart.reduce((accumulator, item) => {
+  //     return accumulator + item.cartQuantity
+  //     })
+  //   : ''
+
   return {
     isLoggedIn: !!state.user.id,
-    cartQuantity: state.order.cart.length
+    cart: state.order.cart
   }
 }
 
@@ -100,6 +111,8 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
+      console.log('beteween')
+      dispatch(clearCart())
     }
   }
 }

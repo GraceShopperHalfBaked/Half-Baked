@@ -41,9 +41,10 @@ router.post('/', async (req, res, next) => {
 
     let productInfo = {
       ...req.body,
-      orderId: order[0].id
+      productOrder: {
+        orderId: order[0].id
+      }
     }
-    console.log(productInfo)
     res.json(productInfo)
   } catch (err) {
     next(err)
@@ -70,7 +71,9 @@ router.put('/', async (req, res, next) => {
   }
 })
 
+
 router.put('/:orderId', async (req, res, next) => {
+
   try {
     await Order.update(
       {
@@ -78,6 +81,7 @@ router.put('/:orderId', async (req, res, next) => {
       },
       {
         where: {
+
           id: req.params.orderId
         }
       }
@@ -103,6 +107,7 @@ router.put('/:orderId', async (req, res, next) => {
     )
 
     res.sendStatus(204)
+
   } catch (error) {
     console.error(error)
   }
