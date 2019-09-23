@@ -6,6 +6,7 @@ import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 import SingleProductDetail from './components/SingleProductDetail'
 import CartMain from './components/CartMain'
+import Checkout from './components/Checkout'
 
 /**
  * COMPONENT
@@ -17,7 +18,7 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
-    console.log('li???', isLoggedIn)
+    console.log('isloggedIn???', isLoggedIn)
 
     return (
       <Switch>
@@ -36,6 +37,8 @@ class Routes extends Component {
               component={SingleProductDetail}
             />
             <Route path="/cart" component={CartMain} />
+            <Route path="/checkout" component={Checkout} />
+            <Route component={UserHome} />
           </Switch>
         )}
 

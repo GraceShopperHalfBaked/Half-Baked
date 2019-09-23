@@ -8,8 +8,11 @@ const GOT_CART_FROM_SERVER = 'GOT_CART_FROM_SERVER'
 const ADDED_TO_CART = 'ADDED_TO_CART'
 const UPDATED_CART_QUANTITY = 'UPDATED_CART_QUANTITY'
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
+const CHECKOUT = 'CHECKOUT'
+const CLEARED_CART = 'CLEARED_CART'
 
 // ACTION CREATORS
+
 const gotCart = cart => ({
   type: GOT_CART_FROM_SERVER,
   cart
@@ -29,6 +32,13 @@ const updatedCartQuantity = product => {
   }
 }
 
+export const clearedCart = () => {
+  console.log('*********************')
+  return {
+    type: CLEARED_CART
+  }
+}
+
 /// ACTION CREATOR FOR REMOVING CART ITEM
 const removeFromCart = (orderId, prodId) => {
   return {
@@ -38,7 +48,23 @@ const removeFromCart = (orderId, prodId) => {
   }
 }
 
+// ACTION CREATOR FOR CHECKOUT
+const checkout = () => ({
+  type: CHECKOUT
+})
+
 // THUNK CREATOR for CART
+export const processCheckout = cart => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('/api/orders', cart)
+      dispatch(checkout(data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
 export const fetchCart = userId => {
   return async dispatch => {
     try {
@@ -53,6 +79,13 @@ export const fetchCart = userId => {
     } catch (error) {
       console.error(error)
     }
+  }
+}
+
+// THUNK CREATOR for CART
+export const clearCart = () => {
+  return dispatch => {
+    dispatch(clearedCart())
   }
 }
 
@@ -71,7 +104,20 @@ export const addToCart = product => {
         } else {
           console.log('orhere')
           let cart = JSON.parse(localStorage.getItem('cart'))
-          cart.push(product)
+          let productAlreadyInCart = false
+          for (let i = 0; i < cart.length; i++) {
+            console.log('y', cart[i].id === product.id)
+            if (cart[i].id === product.id) {
+              console.log('entered here')
+              cart[i].cartQuantity = product.cartQuantity
+              productAlreadyInCart = true
+              localStorage.setItem('cart', JSON.stringify(cart))
+              return dispatch(updatedCartQuantity(product))
+            }
+          }
+          if (productAlreadyInCart === false) {
+            cart.push(product)
+          }
           localStorage.setItem('cart', JSON.stringify(cart))
         }
 
@@ -151,12 +197,19 @@ const orderReducer = (state = initialState, action) => {
         cart: [...state.cart, action.product]
       }
 
+    case CLEARED_CART:
+      return {
+        ...state,
+        cart: []
+      }
+
     case UPDATED_CART_QUANTITY:
       // eslint-disable-next-line no-case-declarations
       let newCartProducts = [...state.cart].map(product => {
         if (product.id === action.product.id) {
           product.cartQuantity = action.product.cartQuantity
         }
+
         return product
       })
 
@@ -164,13 +217,20 @@ const orderReducer = (state = initialState, action) => {
         ...state,
         cart: newCartProducts
       }
-    // REMOVING CART ITEM REDUCER
+
     case REMOVE_CART_ITEM:
       return {
         ...state,
         cart: state.cart.filter(item => {
-          return item.id !== action.orderId && item.id !== action.prodId
+          return item.id !== action.prodId
         })
+      }
+
+    case CHECKOUT:
+      return {
+        ...state,
+
+        cart: []
       }
 
     default:
