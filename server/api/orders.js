@@ -107,24 +107,18 @@ router.put(
           }
         }
       )
-      const productOrder = await ProductOrder.findOne({
+      const productOrders = await ProductOrder.findAll({
         where: {
           orderId: req.params.orderId
         }
       })
 
-      await Product.update(
-        {
-          quantity: 69
-          //--------revisit-----------------
-          // need to set new product quantity
-        },
-        {
-          where: {
-            id: productOrder.productId
-          }
-        }
-      )
+      productOrders.forEach(async product => {
+        const item = await Product.findByPk(product.productId)
+        await item.update({
+          quantity: item.quantity - product.quantity
+        })
+      })
 
       res.sendStatus(204)
     } catch (error) {
