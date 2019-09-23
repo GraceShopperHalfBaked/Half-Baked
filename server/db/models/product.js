@@ -18,7 +18,7 @@ const Product = db.define('product', {
       'https://images.clipartlogo.com/files/istock/previews/4066/40662726-bakery-shop.jpg'
   },
   currentPrice: {
-    type: Sequelize.DECIMAL(12, 2),
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   quantity: {

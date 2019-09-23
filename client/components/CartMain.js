@@ -12,32 +12,33 @@ class DisconnectedCartMain extends React.Component {
     this.props.fetchCart(this.props.user.id)
   }
   render() {
-    const {allCartItems} = this.props
-    // const {removingCartItem} = this.props
-    return (
-      <div>
-        <div id="shopping">Shopping Cart</div>
-        <div className="cart-main">
-          <div>
-            {allCartItems.map(cartItem => {
-              return (
-                <div key={cartItem.id}>
-                  <SingleCartItem
-                    cartItem={cartItem}
-                    removingCartItem={this.props.removingCartItem}
-                  />
-                  <hr id="hr-cart" />
-                </div>
-              )
-            })}
-          </div>
+    const {allCartItems, removingCartItem, processCheckout} = this.props
 
-          <div>
-            <CartSummary
-              allCartItems={allCartItems}
-              processCheckout={this.props.processCheckout}
-            />
-          </div>
+    return (
+
+              <div>
+        <div id="shopping">Shopping Cart</div>
+      <div className="cart-main">
+        <div>
+          {allCartItems.map(cartItem => {
+            return (
+              <div key={cartItem.id}>
+                <SingleCartItem
+                  cartItem={cartItem}
+                  removingCartItem={removingCartItem}
+                />
+                <hr id="hr-cart" />
+              </div>
+            )
+          })}
+        </div>
+        
+        <div>
+          <CartSummary
+            allCartItems={allCartItems}
+            processCheckout={processCheckout}
+          />
+
         </div>
       </div>
     )

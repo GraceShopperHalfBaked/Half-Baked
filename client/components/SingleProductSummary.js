@@ -1,8 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+
 import {addToCart, updateCartQuantity} from '../store/order'
 import AddToCart from './AddToCart'
-import {connect} from 'react-redux'
 
 class DisconnectedSingleProductSummary extends React.Component {
   render() {
@@ -12,7 +13,7 @@ class DisconnectedSingleProductSummary extends React.Component {
           <img src={this.props.product.imageUrl} className="prod-img" />
           <p>{this.props.product.name}</p>
         </Link>
-        <div>Price: {this.props.product.currentPrice}</div>
+        <div>Price: ${(this.props.product.currentPrice / 100).toFixed(2)}</div>
         <AddToCart product={this.props.product} />
       </div>
     )

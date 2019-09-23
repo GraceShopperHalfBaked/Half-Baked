@@ -126,16 +126,19 @@ a#inner-links {
 
 /* Cart view */
 
+
 div#shopping {
   font-family: 'Lobster', sans-serif;
   color: blue;
 }
+
 .cart-main {
   display: flex;
   justify-content: center;
 }
 #sidebar {
   background-color: beige;
+
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
   margin-left: 50px;
   padding: 20px;
@@ -147,9 +150,11 @@ hr#hr-cart {
   width: 80%;
 }
 
+
 #sing-cart-item {
   display: flex;
 }
+
 
 .prod-img-cart {
   transition: all 0.4s ease;
@@ -177,3 +182,4 @@ h3 {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+

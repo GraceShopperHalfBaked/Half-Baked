@@ -2,16 +2,11 @@ import React from 'react'
 import AddToCart from './AddToCart'
 
 const SingleCartItem = props => {
-  const {cartItem} = props
-  const {removingCartItem} = props
 
-  console.log('CART QTY: ', cartItem.productOrder)
-  console.log('CART qty: ', cartItem.cartQuantity)
-
-  if (cartItem.cartQuantity > 0) {
-    cartItem.productOrder.quantity = cartItem.cartQuantity
-  }
-
+  const {cartItem, removingCartItem} = props
+  const singlePrice = (cartItem.currentPrice / 100).toFixed(2)
+  const quantity = cartItem.cartQuantity
+  // console.log(cartItem)
   return (
     <div id="sing-cart-item">
       <div>
@@ -20,19 +15,15 @@ const SingleCartItem = props => {
 
       <div>
         <h3>{cartItem.name}</h3>
-        <p className="cart-deets">
-          Quantity: {cartItem.productOrder.quantity}
-          {/* {cartItem.productOrder
-            ? cartItem.productOrder.quantity
-            : cartItem.cartQuantity} */}
+
+    <p className="cart-deets">
+          Quantity:{' '}
+          {cartItem.productOrder ? quantity || cartItem.productOrder.quantity : quantity}
         </p>
-        <p className="cart-deets">Price: {cartItem.currentPrice}</p>
-        <p>
-          Total Price:{' '}
-          {cartItem.productOrder
-            ? cartItem.currentPrice * cartItem.productOrder.quantity
-            : cartItem.currentPrice * cartItem * cartItem.cartQuantity}
-        </p>
+         <p className="cart-deets">Price: ${singlePrice}</p>
+        Total Price: ${cartItem.productOrder
+          ? (singlePrice * cartItem.productOrder.quantity).toFixed(2)
+          : (singlePrice * quantity).toFixed(2)}
 
         <p>
           <button

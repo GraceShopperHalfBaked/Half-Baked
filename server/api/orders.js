@@ -71,7 +71,9 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.put('/checkout', async (req, res, next) => {
+
+router.put('/:orderId', async (req, res, next) => {
+
   try {
     await Order.update(
       {
@@ -79,11 +81,33 @@ router.put('/checkout', async (req, res, next) => {
       },
       {
         where: {
-          id: req.body.orderId
+
+          id: req.params.orderId
         }
       }
     )
-    res.sendStatus(201)
+    const productOrder = await ProductOrder.findOne({
+      where: {
+        orderId: req.params.orderId
+      }
+    })
+    console.log('this is the req.body: ', req.body)
+
+    await Product.update(
+      {
+        quantity: 69
+        //--------revisit-----------------
+        // need to set new product quantity
+      },
+      {
+        where: {
+          id: productOrder.productId
+        }
+      }
+    )
+
+    res.sendStatus(204)
+
   } catch (error) {
     console.error(error)
   }

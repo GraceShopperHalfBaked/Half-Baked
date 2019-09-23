@@ -52,6 +52,11 @@ const removeFromCart = (orderId, prodId) => {
   }
 }
 
+// ACTION CREATOR FOR CHECKOUT
+const checkout = () => ({
+  type: CHECKOUT
+})
+
 // THUNK CREATOR for CART
 export const processCheckout = cart => {
   return async dispatch => {
@@ -161,10 +166,24 @@ export const updateCartQuantity = product => {
 
 // THUNK FOR REMOVING CART ITEM
 export const removingCartItem = (orderId, prodId) => {
+
   return async dispatch => {
     try {
       await axios.delete(`/api/orders/${orderId}/${prodId}`) // NEED TO WRITE A ROUTER FOR THIS
       dispatch(removeFromCart(orderId, prodId))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+// THUNK FOR CHECKOUT
+export const processCheckout = orderId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/orders/${orderId}`)
+      dispatch(checkout(data))
+
     } catch (error) {
       console.error(error)
     }
@@ -216,20 +235,24 @@ const orderReducer = (state = initialState, action) => {
         ...state,
         cart: newCartProducts
       }
-    // REMOVING CART ITEM REDUCER
+
     case REMOVE_CART_ITEM:
       return {
         ...state,
         cart: state.cart.filter(item => {
-          return item.id !== action.orderId && item.id !== action.prodId
+
+          return item.id !== action.prodId
+
         })
       }
 
     case CHECKOUT:
       return {
         ...state,
-        cart: [...state.cart, action.cart]
+
+        cart: []
       }
+
     default:
       return state
   }
