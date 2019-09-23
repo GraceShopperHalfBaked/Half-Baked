@@ -34,17 +34,18 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
               src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
               id="checkout-icon"
             />
-            <div id="cart-qty">{cartQuantity || 0}</div>
-          </Link>
 
-          {cart.length
-            ? cart.reduce((accumulator, item) => {
-                return (
-                  accumulator +
-                  Number(item.cartQuantity || item.productOrder.quantity)
-                )
-              }, 0)
-            : ''}
+            <div id="cart-qty">
+              {cart.length
+                ? cart.reduce((accumulator, item) => {
+                    return (
+                      accumulator +
+                      Number(item.cartQuantity || item.productOrder.quantity)
+                    )
+                  }, 0)
+                : ''}
+            </div>
+          </Link>
         </div>
       ) : (
         <div>
@@ -69,13 +70,15 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
             <img
               src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
               id="checkout-icon"
-            />{' '}
-            {console.log('cart', cart)}
-            {cart.length
-              ? cart.reduce((accumulator, item) => {
-                  return accumulator + Number(item.cartQuantity)
-                }, 0)
-              : ''}
+            />
+            <div id="cart-qty">
+              {console.log('cart', cart)}
+              {cart.length
+                ? cart.reduce((accumulator, item) => {
+                    return accumulator + Number(item.cartQuantity)
+                  }, 0)
+                : ''}
+            </div>
           </Link>
         </div>
       )}

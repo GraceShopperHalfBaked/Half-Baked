@@ -21,8 +21,6 @@ const validateOwnership = ({
     return
   }
 
-  console.log(userId, adminStatus, req.params.userId)
-
   // for now, give admins access to everything
   if (adminStatus) {
     next()
