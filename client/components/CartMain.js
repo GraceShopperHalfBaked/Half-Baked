@@ -12,7 +12,7 @@ class DisconnectedCartMain extends React.Component {
     this.props.fetchCart(this.props.user.id)
   }
   render() {
-    const {allCartItems, removingCartItem, processCheckout} = this.props
+    const {allCartItems} = this.props
 
     return (
       <div>

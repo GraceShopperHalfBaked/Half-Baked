@@ -33,10 +33,10 @@ const CartSummary = props => {
       </div>
       <p>Estimated Shipping: FREE</p>
       <p>Estimated Tax: ${tax}</p>
-      <p>
+      <div>
         <hr id="hr-cart" />
         <strong>Estimated Total: ${total}</strong>
-      </p>
+      </div>
 
       <Link to="/checkout">
         <button

@@ -40,10 +40,9 @@ export const clearedCart = () => {
 }
 
 /// ACTION CREATOR FOR REMOVING CART ITEM
-const removeFromCart = (orderId, prodId) => {
+const removeFromCart = prodId => {
   return {
     type: REMOVE_CART_ITEM,
-    orderId,
     prodId
   }
 }
@@ -122,24 +121,6 @@ export const addToCart = product => {
         }
 
         dispatch(addedToCart(product))
-
-        // let cart = JSON.parse(localStorage.getItem('cart'))
-        // let productAlreadyInCart = false
-        // for (let i = 0; i < cart.length; i++) {
-        //   if (cart[i].id === product.id) {
-        //     cart[i].cartQuantity = product.cartQuantity
-        //     localStorage.setItem('cart', JSON.stringify(cart))
-        //     productAlreadyInCart = true
-        //     break
-        //   }
-        // }
-        // if (!productAlreadyInCart) {
-        //   cart[product.name]
-        //   dispatch(addedToCart(JSON.parse(localStorage.getItem(product.name))))
-        // } else {
-        // }
-        // localStorage.setItem(cart[product.name], JSON.stringify(product))
-        // dispatch(addedToCart(JSON.parse(localStorage.getItem(product.name))))
       }
     } catch (error) {
       console.error(error)
@@ -164,8 +145,18 @@ export const updateCartQuantity = product => {
 export const removingCartItem = (orderId, prodId) => {
   return async dispatch => {
     try {
-      await axios.delete(`/api/orders/${orderId}/${prodId}`) // NEED TO WRITE A ROUTER FOR THIS
-      dispatch(removeFromCart(orderId, prodId))
+      if (orderId !== null) {
+        await axios.delete(`/api/orders/${orderId}/${prodId}`) // NEED TO WRITE A ROUTER FOR THIS
+        dispatch(removeFromCart(prodId))
+      } else {
+        let cart = JSON.parse(localStorage.getItem('cart'))
+        cart = cart.filter(item => {
+          return item.id !== prodId
+        })
+
+        localStorage.setItem('cart', JSON.stringify(cart))
+        dispatch(removeFromCart(prodId))
+      }
     } catch (error) {
       console.error(error)
     }

@@ -28,7 +28,9 @@ const SingleCartItem = props => {
           <button
             type="submit"
             onClick={() =>
-              removingCartItem(cartItem.productOrder.orderId, cartItem.id)
+              cartItem.productOrder
+                ? removingCartItem(cartItem.productOrder.orderId, cartItem.id)
+                : removingCartItem(null, cartItem.id)
             }
           >
             Remove Item
