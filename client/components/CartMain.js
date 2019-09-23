@@ -15,7 +15,6 @@ class DisconnectedCartMain extends React.Component {
     const {allCartItems, removingCartItem, processCheckout} = this.props
 
     return (
-
       <div>
         <div id="shopping">Shopping Cart</div>
         <div className="cart-main">
@@ -39,7 +38,6 @@ class DisconnectedCartMain extends React.Component {
               processCheckout={processCheckout}
             />
           </div>
-
         </div>
       </div>
     )

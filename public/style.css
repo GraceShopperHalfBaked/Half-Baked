@@ -126,7 +126,6 @@ a#inner-links {
 
 /* Cart view */
 
-
 div#shopping {
   font-family: 'Lobster', sans-serif;
   color: blue;
@@ -150,11 +149,9 @@ hr#hr-cart {
   width: 80%;
 }
 
-
 #sing-cart-item {
   display: flex;
 }
-
 
 .prod-img-cart {
   transition: all 0.4s ease;
@@ -182,4 +179,3 @@ h3 {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-

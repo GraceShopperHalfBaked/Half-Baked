@@ -2,7 +2,6 @@ import React from 'react'
 import AddToCart from './AddToCart'
 
 const SingleCartItem = props => {
-
   const {cartItem, removingCartItem} = props
   const singlePrice = (cartItem.currentPrice / 100).toFixed(2)
   const quantity = cartItem.cartQuantity
@@ -15,16 +14,16 @@ const SingleCartItem = props => {
 
       <div>
         <h3>{cartItem.name}</h3>
-
-    <p className="cart-deets">
+        <p className="cart-deets">
           Quantity:{' '}
-          {cartItem.productOrder ? quantity || cartItem.productOrder.quantity : quantity}
+          {cartItem.productOrder
+            ? quantity || cartItem.productOrder.quantity
+            : quantity}
         </p>
-         <p className="cart-deets">Price: ${singlePrice}</p>
+        <p className="cart-deets">Price: ${singlePrice}</p>
         Total Price: ${cartItem.productOrder
           ? (singlePrice * cartItem.productOrder.quantity).toFixed(2)
           : (singlePrice * quantity).toFixed(2)}
-
         <p>
           <button
             type="submit"

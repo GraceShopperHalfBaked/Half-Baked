@@ -46,7 +46,6 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
                 : ''}
             </div>
           </Link>
-
         </div>
       ) : (
         <div>
@@ -71,7 +70,6 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
             <img
               src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
               id="checkout-icon"
-
             />
             <div id="cart-qty">
               {console.log('cart', cart)}
@@ -81,7 +79,6 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
                   }, 0)
                 : ''}
             </div>
-
           </Link>
         </div>
       )}

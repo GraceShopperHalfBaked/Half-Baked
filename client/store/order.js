@@ -12,10 +12,6 @@ const CHECKOUT = 'CHECKOUT'
 const CLEARED_CART = 'CLEARED_CART'
 
 // ACTION CREATORS
-const checkout = cart => ({
-  type: CHECKOUT,
-  cart
-})
 
 const gotCart = cart => ({
   type: GOT_CART_FROM_SERVER,
@@ -166,7 +162,6 @@ export const updateCartQuantity = product => {
 
 // THUNK FOR REMOVING CART ITEM
 export const removingCartItem = (orderId, prodId) => {
-
   return async dispatch => {
     try {
       await axios.delete(`/api/orders/${orderId}/${prodId}`) // NEED TO WRITE A ROUTER FOR THIS
@@ -227,9 +222,7 @@ const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: state.cart.filter(item => {
-
           return item.id !== action.prodId
-
         })
       }
 
