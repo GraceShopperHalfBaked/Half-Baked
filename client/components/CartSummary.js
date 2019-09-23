@@ -22,6 +22,7 @@ const CartSummary = props => {
   // console.log(allCartItems)
   return (
     <div id="sidebar">
+      <div id="shopping-summ">Summary</div>
       <div>
         <p>
           <strong>Subtotal:</strong> ${subTotal}
