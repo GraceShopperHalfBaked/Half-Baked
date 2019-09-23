@@ -53,11 +53,11 @@ const checkout = () => ({
   type: CHECKOUT
 })
 
-// THUNK CREATOR for CART
-export const processCheckout = cart => {
+// THUNK FOR CHECKOUT
+export const processCheckout = orderId => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/orders', cart)
+      const {data} = await axios.put(`/api/orders/${orderId}/checkout`)
       dispatch(checkout(data))
     } catch (error) {
       console.error(error)

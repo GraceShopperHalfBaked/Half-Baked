@@ -45,7 +45,8 @@ const validateOwnership = ({
 
   // test to see if current user owns the order
   // if not :(
-  const {orderId} = req.params
+  const {orderId} = req.params.orderId ? req.params : req.body
+  console.log('this is orderId', orderId)
 
   if (!orderId) {
     // if an orderId is not specified
