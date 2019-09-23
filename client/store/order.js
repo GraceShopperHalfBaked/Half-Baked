@@ -177,19 +177,6 @@ export const removingCartItem = (orderId, prodId) => {
   }
 }
 
-// THUNK FOR CHECKOUT
-export const processCheckout = orderId => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.put(`/api/orders/${orderId}`)
-      dispatch(checkout(data))
-
-    } catch (error) {
-      console.error(error)
-    }
-  }
-}
-
 // INITIAL STATE
 const initialState = {
   history: [],
