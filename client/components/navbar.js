@@ -34,9 +34,17 @@ const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
               src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
               id="checkout-icon"
             />
+            <div id="cart-qty">
+              {cart.length
+                ? cart.reduce((accumulator, item) => {
+                    return (
+                      accumulator +
+                      Number(item.cartQuantity || item.productOrder.quantity)
+                    )
+                  }, 0)
+                : ''}
+            </div>
           </Link>
-
-          {cartQuantity || 0}
         </div>
       ) : (
         <div>
@@ -61,8 +69,15 @@ const Navbar = ({handleClick, isLoggedIn, cartQuantity}) => (
             <img
               src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
               id="checkout-icon"
-            />{' '}
-            here
+            />
+            <div id="cart-qty">
+              {console.log('cart', cart)}
+              {cart.length
+                ? cart.reduce((accumulator, item) => {
+                    return accumulator + Number(item.cartQuantity)
+                  }, 0)
+                : ''}
+            </div>
           </Link>
         </div>
       )}
