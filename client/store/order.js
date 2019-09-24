@@ -1,7 +1,11 @@
 import axios from 'axios'
 
 //define localstorage
-// const localStorage = window.localStorage
+// let localStorage
+
+// if (window) {
+//   localStorage = window.localStorage
+// }
 
 // ACTION TYPES
 const GOT_CART_FROM_SERVER = 'GOT_CART_FROM_SERVER'
