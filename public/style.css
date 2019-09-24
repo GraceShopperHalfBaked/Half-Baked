@@ -78,7 +78,29 @@ a#inner-links {
 #checkout-icon {
   height: 50px;
 }
-
+#google-butt {
+  width: 180px;
+}
+#form-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 600px;
+  flex-direction: row;
+}
+#middle-form {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+  min-height: 200px;
+  background-color: beige;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  border-radius: 25px;
+}
+sides {
+  min-width: 300px;
+}
 /* User-home component */
 #home {
   display: flex;

@@ -11,28 +11,41 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-          <LoginNotif />
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
+    <div id="form-div">
+      <div id="sides" />
+      <div id="middle-form">
+        <form onSubmit={handleSubmit} name={name}>
+          <div>
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input name="email" type="text" />
+          </div>
 
-      <a href="/auth/google">{displayName} with Google</a>
+          <p>
+            <div>
+              <label htmlFor="password">
+                <small>Password</small>
+              </label>
+              <input name="password" type="password" />
+            </div>
+          </p>
+          <div>
+            <button type="submit">{displayName}</button>
+            <LoginNotif />
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+
+        {/* <a href="/auth/google">{displayName} with Google</a> */}
+        <a href="/auth/google">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUdBIMn1pBU7a38f2R-YS4gNnapOyWNTfp_IKorWOTvQZimyuk"
+            id="google-butt"
+          />
+        </a>
+      </div>
+      <div id="sides" />
     </div>
   )
 }
