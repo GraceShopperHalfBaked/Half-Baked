@@ -108,6 +108,13 @@ a#inner-links {
   display: flex;
   flex-direction: column;
 }
+#bold-this-name {
+  font-weight: bold;
+}
+h3#bold-this-name {
+  font-weight: bold;
+  color: #de3f40;
+}
 
 /* Single Product Detail comp */
 #single-detail {
@@ -128,9 +135,16 @@ a#inner-links {
 
 div#shopping {
   font-family: 'Lobster', sans-serif;
-  color: blue;
+  color: #704c3e;
+  padding-left: 150px;
+  font-size: 2em;
 }
-
+div#shopping-summ {
+  font-family: 'Lobster', sans-serif;
+  color: #704c3e;
+  font-size: 1.5em;
+  text-align: center;
+}
 .cart-main {
   display: flex;
   justify-content: center;

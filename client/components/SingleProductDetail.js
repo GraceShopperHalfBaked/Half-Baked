@@ -19,7 +19,7 @@ class DisconnectedSingleProductDetail extends React.Component {
           <img src={selectedProduct.imageUrl} id="single-img-details" />
         </div>
         <div id="single-prod-info">
-          <h3>{selectedProduct.name}</h3>
+          <h3 id="bold-this-name">{selectedProduct.name}</h3>
           <p>Price: ${(selectedProduct.currentPrice / 100).toFixed(2)}</p>
           {selectedProduct.description}
           <AddToCart product={selectedProduct} />

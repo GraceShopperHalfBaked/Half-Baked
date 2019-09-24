@@ -5,7 +5,12 @@ const SingleCartItem = props => {
   const {cartItem, removingCartItem} = props
   const singlePrice = (cartItem.currentPrice / 100).toFixed(2)
   const quantity = cartItem.cartQuantity
-  // console.log(cartItem)
+
+  //finalQuant is the Quantity selected on line 22
+  const finalQuant = cartItem.productOrder
+    ? quantity || cartItem.productOrder.quantity
+    : quantity
+
   return (
     <div id="sing-cart-item">
       <div>
@@ -13,22 +18,22 @@ const SingleCartItem = props => {
       </div>
 
       <div>
-        <h3>{cartItem.name}</h3>
-        <p className="cart-deets">
-          Quantity:{' '}
-          {cartItem.productOrder
-            ? quantity || cartItem.productOrder.quantity
-            : quantity}
-        </p>
+        <h3 id="bold-this-name">{cartItem.name}</h3>
+        <p className="cart-deets">Quantity: {finalQuant}</p>
         <p className="cart-deets">Price: ${singlePrice}</p>
-        Total Price: ${cartItem.productOrder
+        {/* Total Price: ${cartItem.productOrder
           ? (singlePrice * cartItem.productOrder.quantity).toFixed(2)
+          : (singlePrice * quantity).toFixed(2)} */}
+        Total Price: ${cartItem.productOrder
+          ? singlePrice * finalQuant
           : (singlePrice * quantity).toFixed(2)}
         <p>
           <button
-            type="submit"
+            type="button"
             onClick={() =>
-              removingCartItem(cartItem.productOrder.orderId, cartItem.id)
+              cartItem.productOrder
+                ? removingCartItem(cartItem.productOrder.orderId, cartItem.id)
+                : removingCartItem(null, cartItem.id)
             }
           >
             Remove Item

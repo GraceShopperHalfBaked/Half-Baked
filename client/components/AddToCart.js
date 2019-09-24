@@ -1,6 +1,7 @@
 import React from 'react'
 import {addToCart, updateCartQuantity} from '../store/order'
 import {connect} from 'react-redux'
+import AddedNotif, {notify} from './Notification/addedNotif'
 
 class DisconnectedAddToCart extends React.Component {
   constructor() {
@@ -19,6 +20,7 @@ class DisconnectedAddToCart extends React.Component {
   }
 
   handleSubmit() {
+    notify('add!')
     let orderId = null
     if (this.props.user.id && this.props.cart[0]) {
       orderId = this.props.cart[0].productOrder.orderId
@@ -61,6 +63,7 @@ class DisconnectedAddToCart extends React.Component {
         <button type="button" onClick={this.handleSubmit}>
           Add to Cart!
         </button>
+        <AddedNotif />
       </div>
     )
   }

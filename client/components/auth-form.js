@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth, clearCart} from '../store'
+import LoginNotif from './Notification/loginNotif'
 
 /**
  * COMPONENT
@@ -26,6 +27,7 @@ const AuthForm = props => {
         </div>
         <div>
           <button type="submit">{displayName}</button>
+          <LoginNotif />
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
