@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 //define localstorage
-// let localStorage
+let localStorage = window.localStorage
 
 // if (window) {
 //   localStorage = window.localStorage
