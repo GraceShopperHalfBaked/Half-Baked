@@ -11,6 +11,7 @@ const fromUSDToCent = amount => amount * 100
 const successPayment = orderId => {
   // console.log('data', data)
   store.dispatch(processCheckout(orderId))
+
   // alert('Payment Successful')
 }
 const errorPayment = data => {

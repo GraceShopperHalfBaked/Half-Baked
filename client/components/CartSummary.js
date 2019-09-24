@@ -46,7 +46,7 @@ const CartSummary = props => {
           <Link to="/checkout">HERE</Link>
         </div>
       ) : (
-        <Link to="/checkout">
+        <div>
           <button
             type="button"
             onClick={() =>
@@ -73,7 +73,7 @@ const CartSummary = props => {
           </div>
 
           {/* <button>STRIPE CHECKOUT HERE!</button> */}
-        </Link>
+        </div>
       )}
     </div>
   )

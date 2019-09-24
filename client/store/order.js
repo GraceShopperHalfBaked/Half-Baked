@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 //define localstorage
 let localStorage = window.localStorage
@@ -65,6 +66,7 @@ export const processCheckout = orderId => {
       //   await axios.post(`/api/orders/${orderId}/stripeCheckout`)
       // }
       dispatch(checkout(data))
+      history.push('/checkout')
     } catch (error) {
       console.error(error)
     }
