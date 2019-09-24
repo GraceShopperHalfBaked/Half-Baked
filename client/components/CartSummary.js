@@ -35,6 +35,8 @@ const CartSummary = props => {
       <p>Estimated Tax: ${tax}</p>
       <div>
         <hr id="hr-cart" />
+      </div>
+      <div>
         <strong>Estimated Total: ${total}</strong>
       </div>
       {/*check to see if it is a guest or an existing user. If the userId is null(it means its a guest), run the first part of the ternary; otherwise, its a user, run the second part.*/}

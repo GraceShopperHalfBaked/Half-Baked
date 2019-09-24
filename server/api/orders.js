@@ -143,7 +143,7 @@ router.post('/guest/checkout', async (req, res, next) => {
       cartStatus: 'purchased',
       totalOrderPrice: totalOrderPrice
     })
-    res.json(order)
+    res.sendStatus(201)
   } catch (error) {
     console.error('error from route:/orders/guest/checkout', error)
   }

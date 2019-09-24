@@ -44,7 +44,7 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
                       Number(item.cartQuantity || item.productOrder.quantity)
                     )
                   }, 0)
-                : ''}
+                : '0'}
             </div>
           </Link>
         </div>
@@ -78,7 +78,7 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
                 ? cart.reduce((accumulator, item) => {
                     return accumulator + Number(item.cartQuantity)
                   }, 0)
-                : ''}
+                : '0'}
             </div>
           </Link>
         </div>
