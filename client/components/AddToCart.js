@@ -33,7 +33,6 @@ class DisconnectedAddToCart extends React.Component {
     }
 
     if (this.props.cart.length > 0 && this.props.user.id) {
-      //----------------revisit------------------------------
       for (let index = 0; index < this.props.cart.length; index++) {
         if (this.props.cart[index].id === this.props.product.id) {
           return this.props.updateCartQuantity(productToAdd)

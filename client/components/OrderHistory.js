@@ -11,9 +11,6 @@ class OrderHistory extends React.Component {
   render() {
     const {history} = this.props
 
-    console.log('this is the orderhistory', history)
-    console.log('this is the props', this.props)
-
     return (
       <div>
         {history.map(oneOrder => {
