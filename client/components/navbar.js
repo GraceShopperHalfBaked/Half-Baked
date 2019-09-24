@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {BrowserRouter, Route, Link} from 'react-router-dom'
 import {logout, clearCart} from '../store'
+import {withRouter} from 'react-router'
 
 import Home from './user-home'
 import CartMain from './CartMain'
@@ -115,7 +116,7 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default withRouter(connect(mapState, mapDispatch)(Navbar))
 
 /**
  * PROP TYPES

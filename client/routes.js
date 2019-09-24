@@ -19,7 +19,6 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
-    console.log('isloggedIn???', isLoggedIn)
 
     return (
       <Switch>
@@ -45,6 +44,8 @@ class Routes extends Component {
         )}
 
         {/* Displays our Login component as a fallback */}
+        <Route path="/cart" component={CartMain} />
+        <Route path="/checkout" component={Checkout} />
         <Route component={UserHome} />
       </Switch>
     )
