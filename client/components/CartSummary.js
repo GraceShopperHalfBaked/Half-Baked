@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Signup} from '../components'
+import StrCheckout from './StripeCheckout'
+
 // import 'fetch cart order stuff here'
 
 const CartSummary = props => {
@@ -63,6 +64,19 @@ const CartSummary = props => {
           >
             CHECKOUT HERE!
           </button>
+          <div>
+            <StrCheckout
+              name="Half-Baked"
+              description="Purchase of Half-Baked Goods"
+              amount={total}
+              orderId={
+                allCartItems[0].productOrder
+                  ? allCartItems[0].productOrder.orderId
+                  : allCartItems[0].orderId
+              }
+            />
+          </div>
+
           {/* <button>STRIPE CHECKOUT HERE!</button> */}
         </Link>
       )}

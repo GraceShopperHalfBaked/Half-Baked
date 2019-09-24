@@ -2,6 +2,15 @@ const router = require('express').Router()
 const {Order, ProductOrder, Product} = require('../db/models')
 
 const {authenticated, validateOwnership} = require('../auth/utils')
+const stripe = require('../constants/stripe')
+
+const postStripeCharge = res => (stripeErr, stripeRes) => {
+  if (stripeErr) {
+    res.status(500).send({error: stripeErr})
+  } else {
+    res.status(200).send({success: stripeRes})
+  }
+}
 
 module.exports = router
 
@@ -122,6 +131,7 @@ router.put(
           }
         }
       )
+      // stripe.charges.create(req.body, postStripeCharge(res));
 
       res.sendStatus(204)
     } catch (error) {
@@ -143,11 +153,39 @@ router.post('/guest/checkout', async (req, res, next) => {
       cartStatus: 'purchased',
       totalOrderPrice: totalOrderPrice
     })
+
+    cart.forEach(product => {
+      ProductOrder.create({
+        orderId: order.id,
+        productId: product.id,
+        totalProductPrice: product.cartQuantity * product.currentPrice,
+        quantity: product.cartQuantity
+      })
+    })
     res.sendStatus(201)
   } catch (error) {
     console.error('error from route:/orders/guest/checkout', error)
   }
 })
+
+//StripeCheckout for logged in user
+router.post(
+  '/:orderId/stripeCheckout',
+  authenticated(),
+  validateOwnership({validateCurrentOrder: true}),
+  (req, res, next) => {
+    try {
+      // [TO-DO]: check conditions:
+      //          1. does current user own this order?
+      //          2. has the order been purchased?
+
+      stripe.charges.create(req.body, postStripeCharge(res))
+      // res.sendStatus(204)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+)
 
 router.delete(
   '/:orderId/:productId',
