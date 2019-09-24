@@ -44,10 +44,9 @@ export const clearedCart = () => {
 }
 
 /// ACTION CREATOR FOR REMOVING CART ITEM
-const removeFromCart = (orderId, prodId) => {
+const removeFromCart = prodId => {
   return {
     type: REMOVE_CART_ITEM,
-    orderId,
     prodId
   }
 }
@@ -62,6 +61,9 @@ export const processCheckout = orderId => {
   return async dispatch => {
     try {
       const {data} = await axios.put(`/api/orders/${orderId}/checkout`)
+      // if (tokenId) {
+      //   await axios.post(`/api/orders/${orderId}/stripeCheckout`)
+      // }
       dispatch(checkout(data))
     } catch (error) {
       console.error(error)
@@ -96,29 +98,31 @@ export const clearCart = () => {
 export const addToCart = product => {
   return async dispatch => {
     try {
+      // if user is logged in, continue with server post request
       if (product.userId) {
         const {data} = await axios.post('/api/orders', product)
         dispatch(addedToCart(data))
       } else {
-        // console.log('local', (localStorage.getItem('cart')))
+        // if user is guest, if first item added to cart, then create cart on localStorage, initialized with the product
         if (!localStorage.getItem('cart')) {
-          console.log('here')
           let cart = [product]
           localStorage.setItem('cart', JSON.stringify(cart))
+
+          //user is guest, cart already exists on local storage
         } else {
-          console.log('orhere')
           let cart = JSON.parse(localStorage.getItem('cart'))
           let productAlreadyInCart = false
+          // check to see if item is aleady in cart, if so, update that cart quantity, and set prodInCart to true
           for (let i = 0; i < cart.length; i++) {
-            console.log('y', cart[i].id === product.id)
             if (cart[i].id === product.id) {
-              console.log('entered here')
               cart[i].cartQuantity = product.cartQuantity
               productAlreadyInCart = true
               localStorage.setItem('cart', JSON.stringify(cart))
               return dispatch(updatedCartQuantity(product))
             }
           }
+
+          // if product not already in cart, then add it to end of cart
           if (productAlreadyInCart === false) {
             cart.push(product)
           }
@@ -126,24 +130,6 @@ export const addToCart = product => {
         }
 
         dispatch(addedToCart(product))
-
-        // let cart = JSON.parse(localStorage.getItem('cart'))
-        // let productAlreadyInCart = false
-        // for (let i = 0; i < cart.length; i++) {
-        //   if (cart[i].id === product.id) {
-        //     cart[i].cartQuantity = product.cartQuantity
-        //     localStorage.setItem('cart', JSON.stringify(cart))
-        //     productAlreadyInCart = true
-        //     break
-        //   }
-        // }
-        // if (!productAlreadyInCart) {
-        //   cart[product.name]
-        //   dispatch(addedToCart(JSON.parse(localStorage.getItem(product.name))))
-        // } else {
-        // }
-        // localStorage.setItem(cart[product.name], JSON.stringify(product))
-        // dispatch(addedToCart(JSON.parse(localStorage.getItem(product.name))))
       }
     } catch (error) {
       console.error(error)
@@ -168,8 +154,18 @@ export const updateCartQuantity = product => {
 export const removingCartItem = (orderId, prodId) => {
   return async dispatch => {
     try {
-      await axios.delete(`/api/orders/${orderId}/${prodId}`) // NEED TO WRITE A ROUTER FOR THIS
-      dispatch(removeFromCart(orderId, prodId))
+      if (orderId !== null) {
+        await axios.delete(`/api/orders/${orderId}/${prodId}`) // NEED TO WRITE A ROUTER FOR THIS
+        dispatch(removeFromCart(prodId))
+      } else {
+        let cart = JSON.parse(localStorage.getItem('cart'))
+        cart = cart.filter(item => {
+          return item.id !== prodId
+        })
+
+        localStorage.setItem('cart', JSON.stringify(cart))
+        dispatch(removeFromCart(prodId))
+      }
     } catch (error) {
       console.error(error)
     }
