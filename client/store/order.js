@@ -98,29 +98,31 @@ export const clearCart = () => {
 export const addToCart = product => {
   return async dispatch => {
     try {
+      // if user is logged in, continue with server post request
       if (product.userId) {
         const {data} = await axios.post('/api/orders', product)
         dispatch(addedToCart(data))
       } else {
-        // console.log('local', (localStorage.getItem('cart')))
+        // if user is guest, if first item added to cart, then create cart on localStorage, initialized with the product
         if (!localStorage.getItem('cart')) {
-          console.log('here')
           let cart = [product]
           localStorage.setItem('cart', JSON.stringify(cart))
+
+          //user is guest, cart already exists on local storage
         } else {
-          console.log('orhere')
           let cart = JSON.parse(localStorage.getItem('cart'))
           let productAlreadyInCart = false
+          // check to see if item is aleady in cart, if so, update that cart quantity, and set prodInCart to true
           for (let i = 0; i < cart.length; i++) {
-            console.log('y', cart[i].id === product.id)
             if (cart[i].id === product.id) {
-              console.log('entered here')
               cart[i].cartQuantity = product.cartQuantity
               productAlreadyInCart = true
               localStorage.setItem('cart', JSON.stringify(cart))
               return dispatch(updatedCartQuantity(product))
             }
           }
+
+          // if product not already in cart, then add it to end of cart
           if (productAlreadyInCart === false) {
             cart.push(product)
           }
