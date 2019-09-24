@@ -61,8 +61,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    processCheckout: (orderId, tokenId) =>
-      dispatch(processCheckout(orderId, tokenId)),
+    processCheckout: orderId => dispatch(processCheckout(orderId)),
     getProducts: () => dispatch(fetchProducts()),
     fetchCart: userId => dispatch(fetchCart(userId)),
     removingCartItem: (orderId, productId) =>
