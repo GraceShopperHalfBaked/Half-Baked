@@ -12,33 +12,40 @@ class DisconnectedCartMain extends React.Component {
     this.props.fetchCart(this.props.user.id)
   }
   render() {
-    const {allCartItems, removingCartItem, processCheckout} = this.props
-
+    const {allCartItems} = this.props
+    // console.log('this is allcartitems', allCartItems)
     return (
       <div>
-        <div id="shopping">Shopping Cart</div>
-        <div className="cart-main">
+        {allCartItems.length > 0 ? (
           <div>
-            {allCartItems.map(cartItem => {
-              return (
-                <div key={cartItem.id}>
-                  <SingleCartItem
-                    cartItem={cartItem}
-                    removingCartItem={removingCartItem}
-                  />
-                  <hr id="hr-cart" />
-                </div>
-              )
-            })}
-          </div>
+            <div id="shopping">Shopping Cart</div>
+            <div className="cart-main">
+              <div>
+                {allCartItems.map(cartItem => {
+                  return (
+                    <div key={cartItem.id}>
+                      <SingleCartItem
+                        cartItem={cartItem}
+                        removingCartItem={this.props.removingCartItem}
+                      />
+                      <hr id="hr-cart" />
+                    </div>
+                  )
+                })}
+              </div>
 
-          <div>
-            <CartSummary
-              allCartItems={allCartItems}
-              processCheckout={processCheckout}
-            />
+              <div>
+                <CartSummary
+                  allCartItems={allCartItems}
+                  processCheckout={this.props.processCheckout}
+                  userId={this.props.user.id}
+                />
+              </div>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div>Your cart is empty!</div>
+        )}
       </div>
     )
   }
@@ -54,7 +61,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    processCheckout: cart => dispatch(processCheckout(cart)),
+    processCheckout: orderId => dispatch(processCheckout(orderId)),
     getProducts: () => dispatch(fetchProducts()),
     fetchCart: userId => dispatch(fetchCart(userId)),
     removingCartItem: (orderId, productId) =>

@@ -18,7 +18,7 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
               Home
             </Link>
           </div>
-          <Link to="/about">About</Link>
+          <Link to="/history">Order History</Link>
           <Link to="/home">
             <img
               src="https://i.ibb.co/B6TFYcv/temp-Half-Baked-LOGO.png"
@@ -43,16 +43,17 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
                       Number(item.cartQuantity || item.productOrder.quantity)
                     )
                   }, 0)
-                : ''}
+                : '0'}
             </div>
           </Link>
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/about" className="navLink">
+          <div className="navLink" />
+          {/* <Link to="/about" className="navLink">
             ABOUT
-          </Link>
+          </Link> */}
           <Link to="/home">
             <img
               src="https://i.ibb.co/B6TFYcv/temp-Half-Baked-LOGO.png"
@@ -66,7 +67,7 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
           <Link to="/signup" className="navLink">
             Sign Up
           </Link>
-          <Link to="/cart">
+          <Link to="/cart" id="cart-icon-cont">
             <img
               src="https://images.all-free-download.com/images/graphiclarge/shopping_cart_icon_vector_red_background_280670.jpg"
               id="checkout-icon"
@@ -77,7 +78,7 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
                 ? cart.reduce((accumulator, item) => {
                     return accumulator + Number(item.cartQuantity)
                   }, 0)
-                : ''}
+                : '0'}
             </div>
           </Link>
         </div>

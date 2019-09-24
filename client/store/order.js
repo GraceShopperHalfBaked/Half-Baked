@@ -1,15 +1,20 @@
 import axios from 'axios'
 
 //define localstorage
-const localStorage = window.localStorage
+let localStorage = window.localStorage
+
+// if (window) {
+//   localStorage = window.localStorage
+// }
 
 // ACTION TYPES
 const GOT_CART_FROM_SERVER = 'GOT_CART_FROM_SERVER'
 const ADDED_TO_CART = 'ADDED_TO_CART'
 const UPDATED_CART_QUANTITY = 'UPDATED_CART_QUANTITY'
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
-const CHECKOUT = 'CHECKOUT'
+// const CHECKOUT = 'CHECKOUT'
 const CLEARED_CART = 'CLEARED_CART'
+const GOT_HISTORY = 'GOT_HISTORY'
 
 // ACTION CREATORS
 
@@ -40,25 +45,41 @@ export const clearedCart = () => {
 }
 
 /// ACTION CREATOR FOR REMOVING CART ITEM
-const removeFromCart = (orderId, prodId) => {
+const removeFromCart = prodId => {
   return {
     type: REMOVE_CART_ITEM,
-    orderId,
     prodId
   }
 }
 
 // ACTION CREATOR FOR CHECKOUT
-const checkout = () => ({
-  type: CHECKOUT
+// const checkout = () => ({
+//   type: CHECKOUT
+// })
+
+const gotHistory = orders => ({
+  type: GOT_HISTORY,
+  orders
 })
 
-// THUNK CREATOR for CART
-export const processCheckout = cart => {
+// THUNK FOR GETTING HISTORY
+export const fetchHistory = userId => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/orders', cart)
-      dispatch(checkout(data))
+      const {data} = await axios.get(`/api/orders/${userId}/history`)
+      dispatch(gotHistory(data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+// THUNK FOR CHECKOUT
+export const processCheckout = orderId => {
+  return async dispatch => {
+    try {
+      await axios.put(`/api/orders/${orderId}/checkout`)
+      dispatch(clearedCart())
     } catch (error) {
       console.error(error)
     }
@@ -92,29 +113,31 @@ export const clearCart = () => {
 export const addToCart = product => {
   return async dispatch => {
     try {
+      // if user is logged in, continue with server post request
       if (product.userId) {
         const {data} = await axios.post('/api/orders', product)
         dispatch(addedToCart(data))
       } else {
-        // console.log('local', (localStorage.getItem('cart')))
+        // if user is guest, if first item added to cart, then create cart on localStorage, initialized with the product
         if (!localStorage.getItem('cart')) {
-          console.log('here')
           let cart = [product]
           localStorage.setItem('cart', JSON.stringify(cart))
+
+          //user is guest, cart already exists on local storage
         } else {
-          console.log('orhere')
           let cart = JSON.parse(localStorage.getItem('cart'))
           let productAlreadyInCart = false
+          // check to see if item is aleady in cart, if so, update that cart quantity, and set prodInCart to true
           for (let i = 0; i < cart.length; i++) {
-            console.log('y', cart[i].id === product.id)
             if (cart[i].id === product.id) {
-              console.log('entered here')
               cart[i].cartQuantity = product.cartQuantity
               productAlreadyInCart = true
               localStorage.setItem('cart', JSON.stringify(cart))
               return dispatch(updatedCartQuantity(product))
             }
           }
+
+          // if product not already in cart, then add it to end of cart
           if (productAlreadyInCart === false) {
             cart.push(product)
           }
@@ -122,24 +145,6 @@ export const addToCart = product => {
         }
 
         dispatch(addedToCart(product))
-
-        // let cart = JSON.parse(localStorage.getItem('cart'))
-        // let productAlreadyInCart = false
-        // for (let i = 0; i < cart.length; i++) {
-        //   if (cart[i].id === product.id) {
-        //     cart[i].cartQuantity = product.cartQuantity
-        //     localStorage.setItem('cart', JSON.stringify(cart))
-        //     productAlreadyInCart = true
-        //     break
-        //   }
-        // }
-        // if (!productAlreadyInCart) {
-        //   cart[product.name]
-        //   dispatch(addedToCart(JSON.parse(localStorage.getItem(product.name))))
-        // } else {
-        // }
-        // localStorage.setItem(cart[product.name], JSON.stringify(product))
-        // dispatch(addedToCart(JSON.parse(localStorage.getItem(product.name))))
       }
     } catch (error) {
       console.error(error)
@@ -164,8 +169,18 @@ export const updateCartQuantity = product => {
 export const removingCartItem = (orderId, prodId) => {
   return async dispatch => {
     try {
-      await axios.delete(`/api/orders/${orderId}/${prodId}`) // NEED TO WRITE A ROUTER FOR THIS
-      dispatch(removeFromCart(orderId, prodId))
+      if (orderId !== null) {
+        await axios.delete(`/api/orders/${orderId}/${prodId}`) // NEED TO WRITE A ROUTER FOR THIS
+        dispatch(removeFromCart(prodId))
+      } else {
+        let cart = JSON.parse(localStorage.getItem('cart'))
+        cart = cart.filter(item => {
+          return item.id !== prodId
+        })
+
+        localStorage.setItem('cart', JSON.stringify(cart))
+        dispatch(removeFromCart(prodId))
+      }
     } catch (error) {
       console.error(error)
     }
@@ -226,11 +241,16 @@ const orderReducer = (state = initialState, action) => {
         })
       }
 
-    case CHECKOUT:
+    // case CHECKOUT:
+    //   return {
+    //     ...state,
+    //     cart: []
+    //   }
+
+    case GOT_HISTORY:
       return {
         ...state,
-
-        cart: []
+        history: action.orders
       }
 
     default:

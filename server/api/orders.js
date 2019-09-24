@@ -2,6 +2,15 @@ const router = require('express').Router()
 const {Order, ProductOrder, Product} = require('../db/models')
 
 const {authenticated, validateOwnership} = require('../auth/utils')
+const stripe = require('../constants/stripe')
+
+const postStripeCharge = res => (stripeErr, stripeRes) => {
+  if (stripeErr) {
+    res.status(500).send({error: stripeErr})
+  } else {
+    res.status(200).send({success: stripeRes})
+  }
+}
 
 module.exports = router
 
@@ -31,6 +40,25 @@ router.get(
     }
   }
 )
+
+router.get(`/:userId/history`, async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        userId: req.params.userId,
+        cartStatus: 'purchased'
+      },
+      include: [
+        {
+          model: Product
+        }
+      ]
+    })
+    res.json(orders)
+  } catch (error) {
+    console.error(error)
+  }
+})
 
 //create a new order
 router.post('/', authenticated(), async (req, res, next) => {
@@ -89,7 +117,7 @@ router.put(
 // [TO-DO]: rename to `/:orderId/checkout`
 // [TO-DO]: make this route an HTTP POST
 router.put(
-  '/:orderId',
+  '/:orderId/checkout',
   authenticated(),
   validateOwnership({validateCurrentOrder: true}),
   async (req, res, next) => {
@@ -97,9 +125,25 @@ router.put(
       // [TO-DO]: check conditions:
       //          1. does current user own this order?
       //          2. has the order been purchased?
+      const productOrders = await ProductOrder.findAll({
+        where: {
+          orderId: req.params.orderId
+        }
+      })
+
+      productOrders.forEach(async product => {
+        const item = await Product.findByPk(product.productId)
+        await item.update({
+          quantity: item.quantity - product.quantity
+        })
+      })
+
       await Order.update(
         {
-          cartStatus: 'purchased'
+          cartStatus: 'purchased',
+          totalOrderPrice: productOrders.reduce((accum, item) => {
+            return accum + item.totalProductPrice
+          }, 0)
         },
         {
           where: {
@@ -107,26 +151,27 @@ router.put(
           }
         }
       )
-      const productOrder = await ProductOrder.findOne({
-        where: {
-          orderId: req.params.orderId
-        }
-      })
-
-      await Product.update(
-        {
-          quantity: 69
-          //--------revisit-----------------
-          // need to set new product quantity
-        },
-        {
-          where: {
-            id: productOrder.productId
-          }
-        }
-      )
+      // stripe.charges.create(req.body, postStripeCharge(res));
 
       res.sendStatus(204)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+)
+
+router.post(
+  '/:orderId/stripeCheckout',
+  authenticated(),
+  validateOwnership({validateCurrentOrder: true}),
+  (req, res, next) => {
+    try {
+      // [TO-DO]: check conditions:
+      //          1. does current user own this order?
+      //          2. has the order been purchased?
+
+      stripe.charges.create(req.body, postStripeCharge(res))
+      // res.sendStatus(204)
     } catch (error) {
       console.error(error)
     }

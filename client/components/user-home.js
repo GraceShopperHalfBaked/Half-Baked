@@ -17,9 +17,14 @@ class UserHome extends React.Component {
   }
 
   render() {
+    const email = this.props.user.email
     const {products} = this.props
+    console.log('EMAIL: ', this.props.user.email)
     return (
       <div id="home">
+        <div>
+          <h3>Welcome, {email}</h3>
+        </div>
         {products.map(product => (
           <div key={product.id}>
             <SingleProductSummary

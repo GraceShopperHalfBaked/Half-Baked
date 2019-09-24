@@ -7,6 +7,7 @@ import {me} from './store'
 import SingleProductDetail from './components/SingleProductDetail'
 import CartMain from './components/CartMain'
 import Checkout from './components/Checkout'
+import OrderHistory from './components/OrderHistory'
 
 /**
  * COMPONENT
@@ -38,6 +39,7 @@ class Routes extends Component {
             />
             <Route path="/cart" component={CartMain} />
             <Route path="/checkout" component={Checkout} />
+            <Route path="/history" component={OrderHistory} />
             <Route component={UserHome} />
           </Switch>
         )}

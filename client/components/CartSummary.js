@@ -1,11 +1,12 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import StrCheckout from './StripeCheckout'
+
 // import 'fetch cart order stuff here'
 
 const CartSummary = props => {
-  const {allCartItems, processCheckout} = props
+  const {allCartItems, processCheckout, userId} = props
   let totalOrderPrice = 0
-  // console.log('before enter loop totalorderprice: ', totalOrderPrice)
 
   for (let i = 0; i < allCartItems.length; i++) {
     // console.log('here before addding')
@@ -22,6 +23,7 @@ const CartSummary = props => {
   // console.log(allCartItems)
   return (
     <div id="sidebar">
+      <div id="shopping-summ">Summary</div>
       <div>
         <p>
           <strong>Subtotal:</strong> ${subTotal}
@@ -32,26 +34,47 @@ const CartSummary = props => {
       </div>
       <p>Estimated Shipping: FREE</p>
       <p>Estimated Tax: ${tax}</p>
-      <p>
+      <div>
         <hr id="hr-cart" />
+      </div>
+      <div>
         <strong>Estimated Total: ${total}</strong>
-      </p>
+      </div>
 
-      <Link to="/checkout">
-        <button
-          type="button"
-          onClick={() =>
-            processCheckout(
-              allCartItems[0].productOrder
-                ? allCartItems[0].productOrder.orderId
-                : allCartItems[0].orderId
-            )
-          }
-        >
-          CHECKOUT HERE!
-        </button>
-        {/* <button>STRIPE CHECKOUT HERE!</button> */}
-      </Link>
+      {!userId ? (
+        <div>
+          <Link to="/checkout">HERE</Link>
+        </div>
+      ) : (
+        <Link to="/checkout">
+          <button
+            type="button"
+            onClick={() =>
+              processCheckout(
+                allCartItems[0].productOrder
+                  ? allCartItems[0].productOrder.orderId
+                  : allCartItems[0].orderId
+              )
+            }
+          >
+            CHECKOUT HERE!
+          </button>
+          <div>
+            <StrCheckout
+              name="Half-Baked"
+              description="Purchase of Half-Baked Goods"
+              amount={total}
+              orderId={
+                allCartItems[0].productOrder
+                  ? allCartItems[0].productOrder.orderId
+                  : allCartItems[0].orderId
+              }
+            />
+          </div>
+
+          {/* <button>STRIPE CHECKOUT HERE!</button> */}
+        </Link>
+      )}
     </div>
   )
 }
