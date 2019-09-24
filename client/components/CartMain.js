@@ -12,7 +12,7 @@ class DisconnectedCartMain extends React.Component {
     this.props.fetchCart(this.props.user.id)
   }
   render() {
-    const {allCartItems, removingCartItem, processCheckout} = this.props
+    const {allCartItems} = this.props
     // console.log('this is allcartitems', allCartItems)
     return (
       <div>
@@ -26,7 +26,7 @@ class DisconnectedCartMain extends React.Component {
                     <div key={cartItem.id}>
                       <SingleCartItem
                         cartItem={cartItem}
-                        removingCartItem={removingCartItem}
+                        removingCartItem={this.props.removingCartItem}
                       />
                       <hr id="hr-cart" />
                     </div>
@@ -37,7 +37,8 @@ class DisconnectedCartMain extends React.Component {
               <div>
                 <CartSummary
                   allCartItems={allCartItems}
-                  processCheckout={processCheckout}
+                  processCheckout={this.props.processCheckout}
+                  userId={this.props.user.id}
                 />
               </div>
             </div>
@@ -60,7 +61,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    processCheckout: cart => dispatch(processCheckout(cart)),
+    processCheckout: (orderId, tokenId) =>
+      dispatch(processCheckout(orderId, tokenId)),
     getProducts: () => dispatch(fetchProducts()),
     fetchCart: userId => dispatch(fetchCart(userId)),
     removingCartItem: (orderId, productId) =>

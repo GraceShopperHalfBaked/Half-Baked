@@ -57,11 +57,18 @@ const CartSummary = props => {
           >
             CHECKOUT HERE!
           </button>
-          <StrCheckout
-            name="The Road to learn React"
-            description="Only the Book"
-            amount={1}
-          />
+          <div>
+            <StrCheckout
+              name="Half-Baked"
+              description="Purchase of Half-Baked Goods"
+              amount={total}
+              orderId={
+                allCartItems[0].productOrder
+                  ? allCartItems[0].productOrder.orderId
+                  : allCartItems[0].orderId
+              }
+            />
+          </div>
 
           {/* <button>STRIPE CHECKOUT HERE!</button> */}
         </Link>

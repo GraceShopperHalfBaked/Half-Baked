@@ -57,6 +57,9 @@ export const processCheckout = orderId => {
   return async dispatch => {
     try {
       const {data} = await axios.put(`/api/orders/${orderId}/checkout`)
+      // if (tokenId) {
+      //   await axios.post(`/api/orders/${orderId}/stripeCheckout`)
+      // }
       dispatch(checkout(data))
     } catch (error) {
       console.error(error)

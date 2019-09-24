@@ -26,7 +26,7 @@ const SingleCartItem = props => {
           : (singlePrice * quantity).toFixed(2)}
         <p>
           <button
-            type="submit"
+            type="button"
             onClick={() =>
               cartItem.productOrder
                 ? removingCartItem(cartItem.productOrder.orderId, cartItem.id)
