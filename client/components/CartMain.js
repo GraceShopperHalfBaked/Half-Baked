@@ -13,7 +13,7 @@ class DisconnectedCartMain extends React.Component {
   }
   render() {
     const {allCartItems, removingCartItem, processCheckout} = this.props
-
+    console.log(allCartItems)
     return (
       <div>
         <div id="shopping">Shopping Cart</div>
