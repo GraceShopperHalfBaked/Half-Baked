@@ -110,15 +110,12 @@ router.put(
         })
       })
 
-      let totalOrderPrice = 0
-      for (let i = 0; i < productOrders.length; i++) {
-        totalOrderPrice += productOrders[i].totalProductPrice
-      }
-
       await Order.update(
         {
           cartStatus: 'purchased',
-          totalOrderPrice
+          totalOrderPrice: productOrders.reduce((accum, item) => {
+            return accum + item.totalProductPrice
+          }, 0)
         },
         {
           where: {

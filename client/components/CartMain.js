@@ -43,7 +43,7 @@ class DisconnectedCartMain extends React.Component {
             </div>
           </div>
         ) : (
-          <div>No items in cart</div>
+          <div>Your cart is empty!</div>
         )}
       </div>
     )
