@@ -96,16 +96,6 @@ router.put(
       // [TO-DO]: check conditions:
       //          1. does current user own this order?
       //          2. has the order been purchased?
-      await Order.update(
-        {
-          cartStatus: 'purchased'
-        },
-        {
-          where: {
-            id: req.params.orderId
-          }
-        }
-      )
       const productOrders = await ProductOrder.findAll({
         where: {
           orderId: req.params.orderId
@@ -118,6 +108,20 @@ router.put(
           quantity: item.quantity - product.quantity
         })
       })
+
+      await Order.update(
+        {
+          cartStatus: 'purchased',
+          totalOrderPrice: productOrders.reduce((accum, item) => {
+            return accum + item.totalProductPrice
+          }, 0)
+        },
+        {
+          where: {
+            id: req.params.orderId
+          }
+        }
+      )
 
       res.sendStatus(204)
     } catch (error) {
