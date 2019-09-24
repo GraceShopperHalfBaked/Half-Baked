@@ -52,7 +52,7 @@ const checkout = () => ({
   type: CHECKOUT
 })
 
-// THUNK FOR CHECKOUT
+// THUNK FOR USER CHECKOUT
 export const processCheckout = orderId => {
   return async dispatch => {
     try {
@@ -64,6 +64,23 @@ export const processCheckout = orderId => {
   }
 }
 
+// THUNK FOR GUEST CHECKOUT
+export const processGuestCheckout = () => {
+  return async dispatch => {
+    try {
+      console.log('we are dispatching the guestCheckout thunk')
+      let cart = JSON.parse(localStorage.getItem('cart'))
+      console.log('cart in the guestCheckout thunk', cart)
+      await axios.post('/api/orders/guest/checkout', cart)
+      localStorage.removeItem('cart')
+      dispatch(checkout())
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+// THUNK FOR FETCHING CART
 export const fetchCart = userId => {
   return async dispatch => {
     try {

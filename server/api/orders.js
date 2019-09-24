@@ -131,7 +131,23 @@ router.put(
 )
 
 // Guest checkout
-router.post('/guest/checkout', async (req, res, next) => {})
+router.post('/guest/checkout', async (req, res, next) => {
+  try {
+    const cart = req.body
+    const totalOrderPrice = cart.reduce((accum, product) => {
+      return accum + product.cartQuantity * product.currentPrice
+    }, 0)
+    console.log('total order backend🤩🤩🤩🤩', totalOrderPrice)
+
+    const order = await Order.create({
+      cartStatus: 'purchased',
+      totalOrderPrice: totalOrderPrice
+    })
+    res.json(order)
+  } catch (error) {
+    console.error('error from route:/orders/guest/checkout', error)
+  }
+})
 
 router.delete(
   '/:orderId/:productId',
