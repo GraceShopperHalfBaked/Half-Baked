@@ -41,6 +41,25 @@ router.get(
   }
 )
 
+router.get(`/:userId/history`, async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        userId: req.params.userId,
+        cartStatus: 'purchased'
+      },
+      include: [
+        {
+          model: Product
+        }
+      ]
+    })
+    res.json(orders)
+  } catch (error) {
+    console.error(error)
+  }
+})
+
 //create a new order
 router.post('/', authenticated(), async (req, res, next) => {
   try {
@@ -147,7 +166,6 @@ router.post('/guest/checkout', async (req, res, next) => {
     const totalOrderPrice = cart.reduce((accum, product) => {
       return accum + product.cartQuantity * product.currentPrice
     }, 0)
-    console.log('total order backend🤩🤩🤩🤩', totalOrderPrice)
 
     const order = await Order.create({
       cartStatus: 'purchased',
