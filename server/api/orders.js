@@ -114,8 +114,7 @@ router.put(
   }
 )
 
-// [TO-DO]: rename to `/:orderId/checkout`
-// [TO-DO]: make this route an HTTP POST
+// User checkout
 router.put(
   '/:orderId/checkout',
   authenticated(),
@@ -160,23 +159,46 @@ router.put(
   }
 )
 
-router.post(
-  '/:orderId/stripeCheckout',
-  authenticated(),
-  validateOwnership({validateCurrentOrder: true}),
-  (req, res, next) => {
-    try {
-      // [TO-DO]: check conditions:
-      //          1. does current user own this order?
-      //          2. has the order been purchased?
+// Guest checkout
+router.post('/guest/checkout', async (req, res, next) => {
+  try {
+    const cart = req.body
+    const totalOrderPrice = cart.reduce((accum, product) => {
+      return accum + product.cartQuantity * product.currentPrice
+    }, 0)
 
-      stripe.charges.create(req.body, postStripeCharge(res))
-      // res.sendStatus(204)
-    } catch (error) {
-      console.error(error)
-    }
+    const order = await Order.create({
+      cartStatus: 'purchased',
+      totalOrderPrice: totalOrderPrice
+    })
+
+    cart.forEach(product => {
+      ProductOrder.create({
+        orderId: order.id,
+        productId: product.id,
+        totalProductPrice: product.cartQuantity * product.currentPrice,
+        quantity: product.cartQuantity
+      })
+    })
+    res.sendStatus(201)
+  } catch (error) {
+    console.error('error from route:/orders/guest/checkout', error)
   }
-)
+})
+
+//StripeCheckout for logged in user
+router.post('/:orderId/stripeCheckout', (req, res, next) => {
+  try {
+    // [TO-DO]: check conditions:
+    //          1. does current user own this order?
+    //          2. has the order been purchased?
+
+    stripe.charges.create(req.body, postStripeCharge(res))
+    // res.sendStatus(204)
+  } catch (error) {
+    console.error(error)
+  }
+})
 
 router.delete(
   '/:orderId/:productId',

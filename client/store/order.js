@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 //define localstorage
 let localStorage = window.localStorage
@@ -38,7 +39,6 @@ const updatedCartQuantity = product => {
 }
 
 export const clearedCart = () => {
-  console.log('*********************')
   return {
     type: CLEARED_CART
   }
@@ -74,18 +74,35 @@ export const fetchHistory = userId => {
   }
 }
 
-// THUNK FOR CHECKOUT
+// THUNK FOR USER CHECKOUT
 export const processCheckout = orderId => {
   return async dispatch => {
     try {
       await axios.put(`/api/orders/${orderId}/checkout`)
       dispatch(clearedCart())
+      history.push('/checkout')
     } catch (error) {
       console.error(error)
     }
   }
 }
 
+// THUNK FOR GUEST CHECKOUT
+export const processGuestCheckout = () => {
+  return async dispatch => {
+    try {
+      let cart = JSON.parse(localStorage.getItem('cart'))
+      await axios.post('/api/orders/guest/checkout', cart)
+      localStorage.removeItem('cart')
+      dispatch(clearedCart())
+      history.push('/checkout')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+// THUNK FOR FETCHING CART
 export const fetchCart = userId => {
   return async dispatch => {
     try {
