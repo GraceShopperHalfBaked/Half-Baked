@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Signup} from '../components'
+import StrCheckout from './StripeCheckout'
+
 // import 'fetch cart order stuff here'
 
 const CartSummary = props => {
@@ -40,7 +41,6 @@ const CartSummary = props => {
 
       {!userId ? (
         <div>
-          <Signup />
           <Link to="/checkout">HERE</Link>
         </div>
       ) : (
@@ -57,6 +57,12 @@ const CartSummary = props => {
           >
             CHECKOUT HERE!
           </button>
+          <StrCheckout
+            name="The Road to learn React"
+            description="Only the Book"
+            amount={1}
+          />
+
           {/* <button>STRIPE CHECKOUT HERE!</button> */}
         </Link>
       )}
