@@ -86,8 +86,7 @@ router.put(
   }
 )
 
-// [TO-DO]: rename to `/:orderId/checkout`
-// [TO-DO]: make this route an HTTP POST
+// User checkout
 router.put(
   '/:orderId/checkout',
   authenticated(),
@@ -126,6 +125,9 @@ router.put(
     }
   }
 )
+
+// Guest checkout
+router.post('/guest/checkout', async (req, res, next) => {})
 
 router.delete(
   '/:orderId/:productId',
