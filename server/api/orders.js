@@ -41,6 +41,25 @@ router.get(
   }
 )
 
+router.get(`/:userId/history`, async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        userId: req.params.userId,
+        cartStatus: 'purchased'
+      },
+      include: [
+        {
+          model: Product
+        }
+      ]
+    })
+    res.json(orders)
+  } catch (error) {
+    console.error(error)
+  }
+})
+
 //create a new order
 router.post('/', authenticated(), async (req, res, next) => {
   try {
@@ -95,8 +114,7 @@ router.put(
   }
 )
 
-// [TO-DO]: rename to `/:orderId/checkout`
-// [TO-DO]: make this route an HTTP POST
+// User checkout
 router.put(
   '/:orderId/checkout',
   authenticated(),
@@ -141,6 +159,34 @@ router.put(
   }
 )
 
+// Guest checkout
+router.post('/guest/checkout', async (req, res, next) => {
+  try {
+    const cart = req.body
+    const totalOrderPrice = cart.reduce((accum, product) => {
+      return accum + product.cartQuantity * product.currentPrice
+    }, 0)
+
+    const order = await Order.create({
+      cartStatus: 'purchased',
+      totalOrderPrice: totalOrderPrice
+    })
+
+    cart.forEach(product => {
+      ProductOrder.create({
+        orderId: order.id,
+        productId: product.id,
+        totalProductPrice: product.cartQuantity * product.currentPrice,
+        quantity: product.cartQuantity
+      })
+    })
+    res.sendStatus(201)
+  } catch (error) {
+    console.error('error from route:/orders/guest/checkout', error)
+  }
+})
+
+//StripeCheckout for logged in user
 router.post(
   '/:orderId/stripeCheckout',
   authenticated(),

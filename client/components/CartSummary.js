@@ -5,7 +5,7 @@ import StrCheckout from './StripeCheckout'
 // import 'fetch cart order stuff here'
 
 const CartSummary = props => {
-  const {allCartItems, processCheckout, userId} = props
+  const {allCartItems, processCheckout, processGuestCheckout, userId} = props
   let totalOrderPrice = 0
 
   for (let i = 0; i < allCartItems.length; i++) {
@@ -40,10 +40,15 @@ const CartSummary = props => {
       <div>
         <strong>Estimated Total: ${total}</strong>
       </div>
-
+      {/*check to see if it is a guest or an existing user. If the userId is null(it means its a guest), run the first part of the ternary; otherwise, its a user, run the second part.*/}
       {!userId ? (
         <div>
-          <Link to="/checkout">HERE</Link>
+          <Link to="/checkout">
+            {console.log('we are here in the first part of the ternary')}
+            <button type="button" onClick={() => processGuestCheckout()}>
+              CHECKOUT HERE!
+            </button>
+          </Link>
         </div>
       ) : (
         <div>

@@ -13,8 +13,9 @@ const GOT_CART_FROM_SERVER = 'GOT_CART_FROM_SERVER'
 const ADDED_TO_CART = 'ADDED_TO_CART'
 const UPDATED_CART_QUANTITY = 'UPDATED_CART_QUANTITY'
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
-const CHECKOUT = 'CHECKOUT'
+// const CHECKOUT = 'CHECKOUT'
 const CLEARED_CART = 'CLEARED_CART'
+const GOT_HISTORY = 'GOT_HISTORY'
 
 // ACTION CREATORS
 
@@ -38,7 +39,6 @@ const updatedCartQuantity = product => {
 }
 
 export const clearedCart = () => {
-  console.log('*********************')
   return {
     type: CLEARED_CART
   }
@@ -53,26 +53,54 @@ const removeFromCart = prodId => {
 }
 
 // ACTION CREATOR FOR CHECKOUT
-const checkout = () => ({
-  type: CHECKOUT
+// const checkout = () => ({
+//   type: CHECKOUT
+// })
+
+const gotHistory = orders => ({
+  type: GOT_HISTORY,
+  orders
 })
 
-// THUNK FOR CHECKOUT
-export const processCheckout = orderId => {
+// THUNK FOR GETTING HISTORY
+export const fetchHistory = userId => {
   return async dispatch => {
     try {
-      const {data} = await axios.put(`/api/orders/${orderId}/checkout`)
-      // if (tokenId) {
-      //   await axios.post(`/api/orders/${orderId}/stripeCheckout`)
-      // }
-      dispatch(checkout(data))
-      history.push('/checkout')
+      const {data} = await axios.get(`/api/orders/${userId}/history`)
+      dispatch(gotHistory(data))
     } catch (error) {
       console.error(error)
     }
   }
 }
 
+// THUNK FOR USER CHECKOUT
+export const processCheckout = orderId => {
+  return async dispatch => {
+    try {
+      await axios.put(`/api/orders/${orderId}/checkout`)
+      dispatch(clearedCart())
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+// THUNK FOR GUEST CHECKOUT
+export const processGuestCheckout = () => {
+  return async dispatch => {
+    try {
+      let cart = JSON.parse(localStorage.getItem('cart'))
+      await axios.post('/api/orders/guest/checkout', cart)
+      localStorage.removeItem('cart')
+      dispatch(clearedCart())
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+// THUNK FOR FETCHING CART
 export const fetchCart = userId => {
   return async dispatch => {
     try {
@@ -228,11 +256,16 @@ const orderReducer = (state = initialState, action) => {
         })
       }
 
-    case CHECKOUT:
+    // case CHECKOUT:
+    //   return {
+    //     ...state,
+    //     cart: []
+    //   }
+
+    case GOT_HISTORY:
       return {
         ...state,
-
-        cart: []
+        history: action.orders
       }
 
     default:
