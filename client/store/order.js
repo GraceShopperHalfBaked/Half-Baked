@@ -80,6 +80,7 @@ export const processCheckout = orderId => {
     try {
       await axios.put(`/api/orders/${orderId}/checkout`)
       dispatch(clearedCart())
+      history.push('/checkout')
     } catch (error) {
       console.error(error)
     }
@@ -94,6 +95,7 @@ export const processGuestCheckout = () => {
       await axios.post('/api/orders/guest/checkout', cart)
       localStorage.removeItem('cart')
       dispatch(clearedCart())
+      history.push('/checkout')
     } catch (error) {
       console.error(error)
     }

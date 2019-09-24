@@ -3,14 +3,18 @@ import axios from 'axios'
 import StripeCheckout from 'react-stripe-checkout'
 import STRIPE_PUBLISHABLE from './constants/stripe'
 // import PAYMENT_SERVER_URL from './constants/server'
-import {processCheckout} from '../store/order'
+import {processCheckout, processGuestCheckout} from '../store/order'
 import store from '../store'
 
 const CURRENCY = 'USD'
 const fromUSDToCent = amount => amount * 100
 const successPayment = orderId => {
   // console.log('data', data)
-  store.dispatch(processCheckout(orderId))
+  if (orderId) {
+    store.dispatch(processCheckout(orderId))
+  } else {
+    store.dispatch(processGuestCheckout())
+  }
 
   // alert('Payment Successful')
 }

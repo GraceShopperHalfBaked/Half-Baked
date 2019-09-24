@@ -43,12 +43,22 @@ const CartSummary = props => {
       {/*check to see if it is a guest or an existing user. If the userId is null(it means its a guest), run the first part of the ternary; otherwise, its a user, run the second part.*/}
       {!userId ? (
         <div>
-          <Link to="/checkout">
-            {console.log('we are here in the first part of the ternary')}
-            <button type="button" onClick={() => processGuestCheckout()}>
-              CHECKOUT HERE!
-            </button>
-          </Link>
+          {console.log('we are here in the first part of the ternary')}
+          <button type="button" onClick={() => processGuestCheckout()}>
+            CHECKOUT HERE!
+          </button>
+          <div>
+            <StrCheckout
+              name="Half-Baked"
+              description="Purchase of Half-Baked Goods"
+              amount={total}
+              orderId={
+                allCartItems[0].productOrder
+                  ? allCartItems[0].productOrder.orderId
+                  : allCartItems[0].orderId
+              }
+            />
+          </div>
         </div>
       ) : (
         <div>

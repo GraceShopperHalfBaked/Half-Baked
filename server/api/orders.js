@@ -187,23 +187,18 @@ router.post('/guest/checkout', async (req, res, next) => {
 })
 
 //StripeCheckout for logged in user
-router.post(
-  '/:orderId/stripeCheckout',
-  authenticated(),
-  validateOwnership({validateCurrentOrder: true}),
-  (req, res, next) => {
-    try {
-      // [TO-DO]: check conditions:
-      //          1. does current user own this order?
-      //          2. has the order been purchased?
+router.post('/:orderId/stripeCheckout', (req, res, next) => {
+  try {
+    // [TO-DO]: check conditions:
+    //          1. does current user own this order?
+    //          2. has the order been purchased?
 
-      stripe.charges.create(req.body, postStripeCharge(res))
-      // res.sendStatus(204)
-    } catch (error) {
-      console.error(error)
-    }
+    stripe.charges.create(req.body, postStripeCharge(res))
+    // res.sendStatus(204)
+  } catch (error) {
+    console.error(error)
   }
-)
+})
 
 router.delete(
   '/:orderId/:productId',
