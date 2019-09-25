@@ -14,36 +14,49 @@ const AuthForm = props => {
     <div id="form-div">
       <div id="sides" />
       <div id="middle-form">
-        <form onSubmit={handleSubmit} name={name}>
-          <div>
-            <label htmlFor="email">
-              <small>Email</small>
-            </label>
-            <input name="email" type="text" />
-          </div>
-
-          <p>
+        <div id="split-form">
+          <div id="middle-bit">
+            <form onSubmit={handleSubmit} name={name} id="within-form">
+              <div className="form-space">
+                <label htmlFor="email">
+                  <small>Email</small>
+                </label>
+                <input name="email" type="text" />
+              </div>
+              <div className="form-space">
+                <label htmlFor="password">
+                  <small>Password</small>
+                </label>
+                <input name="password" type="password" />
+              </div>
+              <div className="form-space">
+                <button type="submit">{displayName}</button>
+                <LoginNotif />
+              </div>
+              {error && error.response && <div> {error.response.data} </div>}
+            </form>
             <div>
-              <label htmlFor="password">
-                <small>Password</small>
-              </label>
-              <input name="password" type="password" />
+              <h3 id="nav-or">----- or -----</h3>
             </div>
-          </p>
-          <div>
-            <button type="submit">{displayName}</button>
-            <LoginNotif />
+            {/* <a href="/auth/google">{displayName} with Google</a> */}
+            <a href="/auth/google">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUdBIMn1pBU7a38f2R-YS4gNnapOyWNTfp_IKorWOTvQZimyuk"
+                id="google-butt"
+              />
+            </a>
           </div>
-          {error && error.response && <div> {error.response.data} </div>}
-        </form>
 
-        {/* <a href="/auth/google">{displayName} with Google</a> */}
-        <a href="/auth/google">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUdBIMn1pBU7a38f2R-YS4gNnapOyWNTfp_IKorWOTvQZimyuk"
-            id="google-butt"
-          />
-        </a>
+          <div id="middle-bit-r">
+            <h1 id="auth-greet-1">{displayName}</h1>
+            <p id="auth-greet-2">and take a bite!</p>
+
+            <img
+              src="https://www.stickpng.com/assets/images/580b57fbd9996e24bc43c0b6.png"
+              id="login-cake"
+            />
+          </div>
+        </div>
       </div>
       <div id="sides" />
     </div>

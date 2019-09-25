@@ -22,9 +22,6 @@ class UserHome extends React.Component {
     console.log('EMAIL: ', this.props.user.email)
     return (
       <div id="home">
-        <div>
-          <h3>Welcome, {email}</h3>
-        </div>
         {products.map(product => (
           <div key={product.id}>
             <SingleProductSummary

@@ -12,10 +12,12 @@ const CartSummary = props => {
     // console.log('here before addding')
     console.log('here before addding allCartItems', allCartItems[i])
 
+    // totalOrderPrice += allCartItems[i].productOrder
+
     totalOrderPrice += allCartItems[i].productOrder
       ? allCartItems[i].productOrder.quantity * allCartItems[i].currentPrice
       : allCartItems[i].cartQuantity * allCartItems[i].currentPrice
-    // console.log('here after addding totalorderprice: ', totalOrderPrice)
+    console.log('here after addding totalorderprice: ', totalOrderPrice)
   }
   const subTotal = (totalOrderPrice / 100).toFixed(2)
   const tax = (totalOrderPrice * 0.08 / 100).toFixed(2)
