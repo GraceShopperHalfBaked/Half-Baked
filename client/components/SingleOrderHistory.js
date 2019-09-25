@@ -17,7 +17,13 @@ const SingleOrderHistory = props => {
           return (
             <div key={itemInOrder.id}>
               <div>{itemInOrder.name}</div>
-              <div>{(itemInOrder.currentPrice / 100).toFixed(2)}</div>
+              <div>
+                {(
+                  itemInOrder.currentPrice *
+                  itemInOrder.productOrder.quantity /
+                  100
+                ).toFixed(2)}
+              </div>
               <img src={itemInOrder.imageUrl} />
             </div>
           )

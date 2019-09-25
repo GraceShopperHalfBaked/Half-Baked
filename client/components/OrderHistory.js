@@ -13,13 +13,19 @@ class OrderHistory extends React.Component {
 
     return (
       <div>
-        {history.map(oneOrder => {
-          return (
-            <div key={oneOrder.id}>
-              <SingleOrderHistory oneOrder={oneOrder} />
-            </div>
-          )
-        })}
+        {history.length > 0 ? (
+          <div>
+            {history.map(oneOrder => {
+              return (
+                <div key={oneOrder.id}>
+                  <SingleOrderHistory oneOrder={oneOrder} />
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          <div>There is no existing order history</div>
+        )}
       </div>
     )
   }
