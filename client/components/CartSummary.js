@@ -9,18 +9,15 @@ const CartSummary = props => {
   let totalOrderPrice = 0
 
   for (let i = 0; i < allCartItems.length; i++) {
-    // console.log('here before addding')
-    console.log('here before addding allCartItems', allCartItems[i])
-
     totalOrderPrice += allCartItems[i].productOrder
-      ? allCartItems[i].productOrder.quantity * allCartItems[i].currentPrice
+      ? (allCartItems[i].cartQuantity ||
+          allCartItems[i].productOrder.quantity) * allCartItems[i].currentPrice
       : allCartItems[i].cartQuantity * allCartItems[i].currentPrice
-    // console.log('here after addding totalorderprice: ', totalOrderPrice)
   }
+
   const subTotal = (totalOrderPrice / 100).toFixed(2)
   const tax = (totalOrderPrice * 0.08 / 100).toFixed(2)
   const total = (Number(subTotal) + Number(tax)).toFixed(2)
-  // console.log(allCartItems)
   return (
     <div id="sidebar">
       <div id="shopping-summ">Summary</div>
@@ -43,7 +40,6 @@ const CartSummary = props => {
       {/*check to see if it is a guest or an existing user. If the userId is null(it means its a guest), run the first part of the ternary; otherwise, its a user, run the second part.*/}
       {!userId ? (
         <div>
-          {console.log('we are here in the first part of the ternary')}
           <button type="button" onClick={() => processGuestCheckout()}>
             CHECKOUT HERE!
           </button>

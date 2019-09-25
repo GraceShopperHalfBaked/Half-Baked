@@ -74,7 +74,6 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
               id="checkout-icon"
             />
             <div id="cart-qty">
-              {console.log('cart', cart)}
               {cart.length
                 ? cart.reduce((accumulator, item) => {
                     return accumulator + Number(item.cartQuantity)
@@ -110,7 +109,6 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-      console.log('beteween')
       dispatch(clearCart())
     }
   }

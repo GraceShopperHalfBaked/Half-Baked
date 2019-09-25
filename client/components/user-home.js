@@ -19,7 +19,6 @@ class UserHome extends React.Component {
   render() {
     const email = this.props.user.email
     const {products} = this.props
-    console.log('EMAIL: ', this.props.user.email)
     return (
       <div id="home">
         <div>

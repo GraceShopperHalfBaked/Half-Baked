@@ -18,7 +18,6 @@ class DisconnectedCartMain extends React.Component {
   }
   render() {
     const {allCartItems} = this.props
-    // console.log('this is allcartitems', allCartItems)
     return (
       <div>
         {allCartItems.length > 0 ? (

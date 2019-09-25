@@ -6,7 +6,6 @@ const Order = db.define('order', {
     type: Sequelize.ENUM('pending', 'purchased'),
     defaultValue: 'pending'
   },
-  // beware floating ---------revisit
   totalOrderPrice: {
     type: Sequelize.INTEGER
   }
