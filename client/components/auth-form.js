@@ -30,7 +30,9 @@ const AuthForm = props => {
                 <input name="password" type="password" />
               </div>
               <div className="form-space">
-                <button type="submit">{displayName}</button>
+                <button type="submit" className="active-butt">
+                  {displayName}
+                </button>
                 <LoginNotif />
               </div>
               {error && error.response && <div> {error.response.data} </div>}
@@ -43,6 +45,7 @@ const AuthForm = props => {
               <img
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUdBIMn1pBU7a38f2R-YS4gNnapOyWNTfp_IKorWOTvQZimyuk"
                 id="google-butt"
+                className="active-butt"
               />
             </a>
           </div>
