@@ -49,7 +49,27 @@ class DisconnectedCartMain extends React.Component {
             </div>
           </div>
         ) : (
-          <div>Your cart is empty!</div>
+          <div id="form-div">
+            <div id="sides" />
+            <div id="middle-form">
+              <div id="middle-bit-r">
+                <div id="auth-greet-1">
+                  <h1>Your cart is empty!</h1>
+                </div>
+
+                <div>
+                  <h1 id="auth-greet-1" />
+                  <p id="auth-greet-2">fill your basket!</p>
+
+                  <img
+                    src="https://cdn1.imggmi.com/uploads/2019/9/25/880f954245d6dfa71809d0964d6c143a-full.png"
+                    id="login-cake"
+                  />
+                </div>
+              </div>
+            </div>
+            <div id="sides" />
+          </div>
         )}
       </div>
     )

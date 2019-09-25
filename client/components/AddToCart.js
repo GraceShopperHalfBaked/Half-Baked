@@ -59,7 +59,7 @@ class DisconnectedAddToCart extends React.Component {
           <option value="9">9</option>
           <option value="10">10</option>
         </select>
-        <button type="button" onClick={this.handleSubmit}>
+        <button type="button" onClick={this.handleSubmit} id="add-butt">
           Add to Cart!
         </button>
         <AddedNotif />

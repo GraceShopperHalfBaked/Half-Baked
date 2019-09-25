@@ -39,11 +39,11 @@ const CartSummary = props => {
       </div>
       {/*check to see if it is a guest or an existing user. If the userId is null(it means its a guest), run the first part of the ternary; otherwise, its a user, run the second part.*/}
       {!userId ? (
-        <div>
+        <div id="above-strype">
           <button type="button" onClick={() => processGuestCheckout()}>
             CHECKOUT HERE!
           </button>
-          <div>
+          <div id="stryper">
             <StrCheckout
               name="Half-Baked"
               description="Purchase of Half-Baked Goods"
@@ -58,19 +58,22 @@ const CartSummary = props => {
         </div>
       ) : (
         <div>
-          <button
-            type="button"
-            onClick={() =>
-              processCheckout(
-                allCartItems[0].productOrder
-                  ? allCartItems[0].productOrder.orderId
-                  : allCartItems[0].orderId
-              )
-            }
-          >
-            CHECKOUT HERE!
-          </button>
-          <div>
+          <div id="above-strype">
+            <button
+              type="button"
+              onClick={() =>
+                processCheckout(
+                  allCartItems[0].productOrder
+                    ? allCartItems[0].productOrder.orderId
+                    : allCartItems[0].orderId
+                )
+              }
+            >
+              CHECKOUT HERE!
+            </button>
+          </div>
+
+          <div id="stryper">
             <StrCheckout
               name="Half-Baked"
               description="Purchase of Half-Baked Goods"
@@ -82,8 +85,6 @@ const CartSummary = props => {
               }
             />
           </div>
-
-          {/* <button>STRIPE CHECKOUT HERE!</button> */}
         </div>
       )}
     </div>
