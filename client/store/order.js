@@ -110,7 +110,6 @@ export const fetchCart = userId => {
         const {data} = await axios.get(`/api/orders/${userId}`)
         dispatch(gotCart(data))
       } else {
-        console.log('doing this now')
         let cart = JSON.parse(localStorage.getItem('cart'))
         dispatch(gotCart(cart))
       }
@@ -172,9 +171,7 @@ export const addToCart = product => {
 export const updateCartQuantity = product => {
   return async dispatch => {
     try {
-      console.log('upprod', product)
       const {data} = await axios.put('/api/orders', product)
-      console.log('data', data)
       dispatch(updatedCartQuantity(product))
     } catch (error) {
       console.error(error)

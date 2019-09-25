@@ -5,20 +5,32 @@ const SingleOrderHistory = props => {
 
   return (
     <div>
-      <h3>{oneOrder.createdAt.slice(0, 10)}</h3>
       <div>
-        <div>Order Number: {oneOrder.id}</div>
-        <div>Order Status: {oneOrder.cartStatus}</div>
-        <div>Order Total: {(oneOrder.totalOrderPrice / 100).toFixed(2)}</div>
-      </div>
-      <div>
-        Order Details:
         {oneOrder.products.map(itemInOrder => {
           return (
             <div key={itemInOrder.id}>
-              <div>{itemInOrder.name}</div>
-              <div>{(itemInOrder.currentPrice / 100).toFixed(2)}</div>
-              <img src={itemInOrder.imageUrl} />
+              <div id="sing-cart-item-checkout">
+                <div id="img-checkout">
+                  <img src={itemInOrder.imageUrl} className="prod-img-cart" />
+                </div>
+
+                <div>
+                  <h3 id="bold-this-name">
+                    <p className="cart-deets">{itemInOrder.name}</p>
+                  </h3>
+                  <p className="cart-deets">
+                    Price: $
+                    {(
+                      itemInOrder.currentPrice *
+                      itemInOrder.productOrder.quantity /
+                      100
+                    ).toFixed(2)}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <hr id="hr-cart-checkout" />
+              </div>
             </div>
           )
         })}

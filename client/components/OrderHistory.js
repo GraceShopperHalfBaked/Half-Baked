@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 import {fetchHistory} from '../store/order'
 import SingleOrderHistory from '../components/SingleOrderHistory'
+import OrderHistorySidebar from './OrderHistorySidebar'
 
 class OrderHistory extends React.Component {
   componentDidMount() {
@@ -11,18 +12,28 @@ class OrderHistory extends React.Component {
   render() {
     const {history} = this.props
 
-    console.log('this is the orderhistory', history)
-    console.log('this is the props', this.props)
-
     return (
-      <div>
-        {history.map(oneOrder => {
-          return (
-            <div key={oneOrder.id}>
-              <SingleOrderHistory oneOrder={oneOrder} />
+      <div className="cart-main">
+        <div>
+          {history.length > 0 ? (
+            <div>
+              {history.map(oneOrder => {
+                return (
+                  <div key={oneOrder.id} className="cart-main">
+                    <div>
+                      <SingleOrderHistory oneOrder={oneOrder} />
+                    </div>
+                    <div>
+                      <OrderHistorySidebar oneOrder={oneOrder} />
+                    </div>
+                  </div>
+                )
+              })}
             </div>
-          )
-        })}
+          ) : (
+            <div>There is no existing order history</div>
+          )}
+        </div>
       </div>
     )
   }

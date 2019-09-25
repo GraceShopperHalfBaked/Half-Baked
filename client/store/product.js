@@ -32,13 +32,11 @@ export const fetchProducts = () => {
 }
 
 export const fetchSelectedProduct = productId => {
-  console.log('entered')
   return async dispatch => {
     try {
       const {data: selectedProduct} = await axios.get(
         `/api/products/${productId}`
       )
-      console.log('data', selectedProduct)
       dispatch(gotSelectedProduct(selectedProduct))
     } catch (error) {
       console.error(error)

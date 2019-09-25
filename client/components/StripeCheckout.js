@@ -9,7 +9,6 @@ import store from '../store'
 const CURRENCY = 'USD'
 const fromUSDToCent = amount => amount * 100
 const successPayment = orderId => {
-  // console.log('data', data)
   if (orderId) {
     store.dispatch(processCheckout(orderId))
   } else {
@@ -22,11 +21,6 @@ const errorPayment = data => {
   alert('Payment Error')
 }
 const onToken = (amount, description, orderId) => token => {
-  console.log('and1ordId', orderId)
-  // const {data} = await axios.put(`/api/orders/${orderId}/checkout`)
-  // console.log('data', data)
-
-  console.log('and2')
   axios
     .post(`/api/orders/${orderId}/stripeCheckout`, {
       description,
