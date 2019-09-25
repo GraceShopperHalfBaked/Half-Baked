@@ -93,8 +93,8 @@ div.form-space {
 }
 #login-cake {
   max-width: 200px;
-  -webkit-animation: jello-horizontal 1.5s 1.2s infinite both;
-  animation: jello-horizontal 1.5s 1.2s infinite both;
+  -webkit-animation: jello-horizontal 1.5s 0.5s infinite both;
+  animation: jello-horizontal 1.5s 0.5s infinite both;
 }
 @-webkit-keyframes jello-horizontal {
   0% {
