@@ -18,6 +18,7 @@ Users can place orders and view order history and past order details.
 
 Half-Baked's frontend was built using modular React components and styled with CSS. We built the backend using Express.JS, Sequelize and PostgreSQL and deployed the app on Heroku.
 
+Node.js
 Javascript
 React
 React-Redux
@@ -27,10 +28,10 @@ Sequelize
 
 ### ✍ Authors
 
-* Qiong (Helen) Zhang http://github.com/helenqiongzhang
-* Jesse Shapiro https://github.com/jesse-shapiro
-* John Vitales https://github.com/JohnieeJuiceboxx
-* Rijin Lee
+* Qiong (Helen) Zhang - https://github.com/helenqiongzhang
+* Jesse Shapiro - https://github.com/jesse-shapiro
+* John Vitales - https://github.com/JohnieeJuiceboxx
+* Rijin Lee - https://github.com/RijinLee
 
 ### 🚀 Deployment
 
