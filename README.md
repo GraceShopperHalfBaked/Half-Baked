@@ -1,22 +1,22 @@
 # **Half-Baked**
 
-Ecommerce Website
+E-commerce Website
 
-### 🤓 Motivation
+### Motivation
 
-We created this site as part of our "Grace Shopper" project for Fullstack Academy of Code.
+We created this site to further develop and enhance our understanding of full-stack web development. Our site seamlessly links the client-side website with our back-end routes and database to fully mimic a functioning e-commerce website selling delicious baked goods. 
 
 ### 🛒 Functionality
 
-Users can sign in using Google OAuth
-Users can view all products and single product details
-Users can add products to their cart, which persists accross sessions using local storage
-Users can view and edit cart
-Users can place orders and view order history and past order details
+Users can sign in using Google OAuth.
+Users can view all products and single product details.
+Users can add products to their cart, which persists across sessions using local storage.
+Users can view and edit cart.
+Users can place orders and view order history and past order details.
 
 ### ⚒ Built With
 
-Half-Baked's frontend was built using modular React components and styled with CSS. We built the backend using Express.JS, Sequelize and PostgreSQL and deployed the app on heroku.
+Half-Baked's frontend was built using modular React components and styled with CSS. We built the backend using Express.JS, Sequelize and PostgreSQL and deployed the app on Heroku.
 
 Javascript
 React
@@ -28,10 +28,10 @@ Sequelize
 ### ✍ Authors
 
 * Qiong (Helen) Zhang http://github.com/helenqiongzhang
-* Jesse Shapiro
+* Jesse Shapiro https://github.com/jesse-shapiro
 * John Vitales https://github.com/JohnieeJuiceboxx
 * Rijin Lee
 
 ### 🚀 Deployment
 
-This website was deployed using Heroku.https://halfbaked-graceshopper.herokuapp.com/home
+This website was deployed using Heroku. https://halfbaked-graceshopper.herokuapp.com/home
