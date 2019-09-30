@@ -1,6 +1,6 @@
 # **Half-Baked**
 
-## Ecommerce Website
+Ecommerce Website
 
 ### 🤓 Motivation
 
@@ -27,10 +27,10 @@ Sequelize
 
 ### ✍ Authors
 
-Qiong (Helen) Zhang github.com/helenqiongzhang
-Jesse Shapiro
-John Vitales
-Rijin Lee
+* Qiong (Helen) Zhang http://github.com/helenqiongzhang
+* Jesse Shapiro
+* John Vitales
+* Rijin Lee
 
 ### 🚀 Deployment
 
