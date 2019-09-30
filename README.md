@@ -29,7 +29,7 @@ Sequelize
 
 * Qiong (Helen) Zhang http://github.com/helenqiongzhang
 * Jesse Shapiro
-* John Vitales
+* John Vitales https://github.com/JohnieeJuiceboxx
 * Rijin Lee
 
 ### 🚀 Deployment
