@@ -2,6 +2,9 @@
 
 E-commerce Website
 
+Visit [Half-Baked Bakery] (https://halfbaked-graceshopper.herokuapp.com/)!
+
+
 ### Motivation
 
 We created this site to further develop and enhance our understanding of full-stack web development. Our site seamlessly links the client-side website with our back-end routes and database to fully mimic a functioning e-commerce website selling delicious baked goods. 
